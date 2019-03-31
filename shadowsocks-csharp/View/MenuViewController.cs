@@ -239,7 +239,7 @@ namespace Shadowsocks.View
                     new MenuItem("-"),
                     noModifyItem = CreateMenuItem("No modify system proxy", new EventHandler(this.NoModifyItem_Click))
                 }),
-                CreateMenuGroup("PAC ", new MenuItem[] {
+                CreateMenuGroup("PAC rule", new MenuItem[] {
                     CreateMenuItem("Update local PAC from Lan IP list", new EventHandler(this.UpdatePACFromLanIPListItem_Click)),
                     new MenuItem("-"),
                     CreateMenuItem("Update local PAC from Chn White list", new EventHandler(this.UpdatePACFromCNWhiteListItem_Click)),
@@ -263,38 +263,30 @@ namespace Shadowsocks.View
                 new MenuItem("-"),
                 ServersItem = CreateMenuGroup("Servers", new MenuItem[] {
                     SeperatorItem = new MenuItem("-"),
-                    CreateMenuItem("Edit servers...", new EventHandler(this.Config_Click)),
-                    CreateMenuItem("Import servers from file...", new EventHandler(this.Import_Click)),
-                    new MenuItem("-"),
+                    SelectRandomItem = CreateMenuItem("Load balance", new EventHandler(this.SelectRandomItem_Click)),
                     sameHostForSameTargetItem = CreateMenuItem("Same host for same address", new EventHandler(this.SelectSameHostForSameTargetItem_Click)),
                     new MenuItem("-"),
                     CreateMenuItem("Server statistic...", new EventHandler(this.ShowServerLogItem_Click)),
                     CreateMenuItem("Disconnect current", new EventHandler(this.DisconnectCurrent_Click)),
                 }),
-                CreateMenuGroup("Servers Subscribe", new MenuItem[] {
-                    CreateMenuItem("Subscribe setting...", new EventHandler(this.SubscribeSetting_Click)),
-                    CreateMenuItem("Update subscribe SSR node", new EventHandler(this.CheckNodeUpdate_Click)),
-                    CreateMenuItem("Update subscribe SSR node(bypass proxy)", new EventHandler(this.CheckNodeUpdateBypassProxy_Click)),
-                }),
-                SelectRandomItem = CreateMenuItem("Load balance", new EventHandler(this.SelectRandomItem_Click)),
-                CreateMenuItem("Global settings...", new EventHandler(this.Setting_Click)),
-                CreateMenuItem("Port settings...", new EventHandler(this.ShowPortMapItem_Click)),
-                UpdateItem = CreateMenuItem("Update available", new EventHandler(this.UpdateItem_Clicked)),
                 new MenuItem("-"),
+                 CreateMenuGroup("Servers Subscribe", new MenuItem[] {
+                        CreateMenuItem("Subscribe setting...", new EventHandler(this.SubscribeSetting_Click)),
+                        CreateMenuItem("Update subscribe SSR node", new EventHandler(this.CheckNodeUpdate_Click)),
+                        CreateMenuItem("Update subscribe SSR node(bypass proxy)", new EventHandler(this.CheckNodeUpdateBypassProxy_Click)),
+                 }),
                 CreateMenuItem("Scan QRCode from screen...", new EventHandler(this.ScanQRCodeItem_Click)),
                 CreateMenuItem("Import SSR links from clipboard...", new EventHandler(this.CopyAddress_Click)),
                 new MenuItem("-"),
+                CreateMenuItem("Web", new EventHandler(this.AboutItem_Click)),
+                UpdateItem = CreateMenuItem("Update available", new EventHandler(this.UpdateItem_Clicked)),
                 CreateMenuGroup("Help", new MenuItem[] {
+                    CreateMenuItem("Global settings...", new EventHandler(this.Setting_Click)),
+                    CreateMenuItem("Port settings...", new EventHandler(this.ShowPortMapItem_Click)),
+                    new MenuItem("-"),
                     CreateMenuItem("Check update", new EventHandler(this.CheckUpdate_Click)),
                     CreateMenuItem("Show logs...", new EventHandler(this.ShowLogItem_Click)),
-                    CreateMenuItem("Open wiki...", new EventHandler(this.OpenWiki_Click)),
-                    CreateMenuItem("Feedback...", new EventHandler(this.FeedbackItem_Click)),
-                    new MenuItem("-"),
-                    CreateMenuItem("Gen custom QRCode...", new EventHandler(this.showURLFromQRCode)),
                     CreateMenuItem("Reset password...", new EventHandler(this.ResetPasswordItem_Click)),
-                    new MenuItem("-"),
-                    CreateMenuItem("About...", new EventHandler(this.AboutItem_Click)),
-                    CreateMenuItem("Donate...", new EventHandler(this.DonateItem_Click)),
                 }),
                 CreateMenuItem("Quit", new EventHandler(this.Quit_Click))
             });
@@ -985,16 +977,6 @@ namespace Shadowsocks.View
             Application.Exit();
         }
 
-        private void OpenWiki_Click(object sender, EventArgs e)
-        {
-            Process.Start("https://github.com/shadowsocksrr/shadowsocks-rss/wiki");
-        }
-
-        private void FeedbackItem_Click(object sender, EventArgs e)
-        {
-            Process.Start("https://github.com/shadowsocksrr/shadowsocksr-csharp/issues/new");
-        }
-
         private void ResetPasswordItem_Click(object sender, EventArgs e)
         {
             ResetPassword dlg = new ResetPassword();
@@ -1004,12 +986,7 @@ namespace Shadowsocks.View
 
         private void AboutItem_Click(object sender, EventArgs e)
         {
-            Process.Start("https://breakwa11.github.io");
-        }
-
-        private void DonateItem_Click(object sender, EventArgs e)
-        {
-            ShowBalloonTip(I18N.GetString("Donate"), I18N.GetString("Please contract to breakwa11 to get more infomation"), ToolTipIcon.Info, 10000);
+            Process.Start("https://www.otakuyun.com");
         }
 
         [DllImport("user32.dll")]
