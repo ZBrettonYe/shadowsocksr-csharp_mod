@@ -23,7 +23,7 @@ namespace Shadowsocks.View
             this.Font = System.Drawing.SystemFonts.MessageBoxFont;
             InitializeComponent();
 
-            this.Icon = Icon.FromHandle(Resources.ssw128.GetHicon());
+            this.Icon = Icon.FromHandle(Resources.logo128.GetHicon());
             this.controller = controller;
 
             UpdateTexts();

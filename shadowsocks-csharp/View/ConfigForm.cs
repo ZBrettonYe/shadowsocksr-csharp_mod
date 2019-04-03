@@ -40,7 +40,7 @@ namespace Shadowsocks.View
             NumUDPPort.Minimum = IPEndPoint.MinPort;
             NumUDPPort.Maximum = IPEndPoint.MaxPort;
 
-            this.Icon = Icon.FromHandle(Resources.ssw128.GetHicon());
+            this.Icon = Icon.FromHandle(Resources.logo128.GetHicon());
             this.controller = controller;
             this.updateChecker = updateChecker;
             if (updateChecker.LatestVersionURL == null)
@@ -260,7 +260,7 @@ namespace Shadowsocks.View
             using (Graphics g = Graphics.FromImage(drawArea))
             {
                 g.Clear(Color.White);
-                Bitmap ngnl = Resources.ngnl;
+                Bitmap ngnl = Resources.logo;
                 g.DrawImage(ngnl, new Rectangle(0, 0, width, width));
                 if (!_modifiedConfiguration.isHideTips)
                     g.DrawString("Click the 'Link' text box", new Font("Arial", 14), new SolidBrush(Color.Black), new RectangleF(0, 0, 300, 300));
@@ -296,7 +296,7 @@ namespace Shadowsocks.View
                             }
                         }
                     }
-                    Bitmap ngnl = Resources.ngnl;
+                    Bitmap ngnl = Resources.logo;
                     int div = 13, div_l = 5, div_r = 8;
                     int l = (m.Width * div_l + div - 1) / div * blockSize, r = (m.Width * div_r + div - 1) / div * blockSize;
                     g.DrawImage(ngnl, new Rectangle(l + blockSize, l + blockSize, r - l, r - l));

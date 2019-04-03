@@ -13,14 +13,14 @@ namespace Shadowsocks.Controller
 {
     public class UpdateFreeNode
     {
-        private const string UpdateURL = "https://raw.githubusercontent.com/shadowsocksrr/breakwa11.github.io/master/free/freenodeplain.txt";
+        private const string UpdateURL = "https://ssr.otakuyun.com/free/freenodeplain.txt";
 
         public event EventHandler NewFreeNodeFound;
         public string FreeNodeResult;
         public ServerSubscribe subscribeTask;
         public bool noitify;
 
-        public const string Name = "ShadowsocksR";
+        public const string Name = "OtakuSSR";
 
         public void CheckUpdate(Configuration config, ServerSubscribe subscribeTask, bool use_proxy, bool noitify)
         {

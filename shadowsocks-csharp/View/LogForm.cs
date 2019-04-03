@@ -28,7 +28,7 @@ namespace Shadowsocks.View
 
             InitializeComponent();
 
-            Icon = Icon.FromHandle(Resources.ssw128.GetHicon());
+            Icon = Icon.FromHandle(Resources.logo128.GetHicon());
 
             UpdateTexts();
         }

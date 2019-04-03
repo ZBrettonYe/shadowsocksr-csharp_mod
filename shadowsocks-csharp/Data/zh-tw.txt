@@ -200,7 +200,7 @@ Delete=刪除
 
 # Messages
 
-Shadowsocks Error: {0}=御宅雲 錯誤: {0}
+Shadowsocks Error: {0}=御宅雲SSR 錯誤: {0}
 Port already in use=連接埠已被占用
 Illegal port number format=非法連接埠格式
 Please add at least one server=請添加至少一個伺服器
@@ -210,7 +210,7 @@ Password are blank=密碼為空
 Port out of range=連接埠超出範圍
 {0} {1} Update Found={0} {1} 更新
 Click menu to download=點擊菜單項下載
-ShadowsocksR is here=ShadowsocksR 在這裡
+ShadowsocksR is here=御宅雲SSR在這裡
 You can turn on/off ShadowsocksR in the context menu=可以在右鍵菜單中開關 本軟體
 System Proxy Enabled=代理已啟用
 System Proxy Disabled=代理未啟用
@@ -219,8 +219,8 @@ PAC updated=更新 智能代理規則 成功
 Domain white list list updated=更新域名白名單成功
 No updates found. Please report to GFWList if you have problems with it.=未發現更新。
 No QRCode found. Try to zoom in or move it to the center of the screen.=未發現 QR 碼，嘗試把QR碼放大或移動到屏幕中間
-ShadowsocksR is already running.=御宅雲 已經在運行。
-Find Shadowsocks icon in your notify tray.=請在工作列裡尋找 御宅雲 圖標。
+ShadowsocksR is already running.=御宅雲SSR 已經在運行。
+Find Shadowsocks icon in your notify tray.=請在工作列裡尋找 御宅雲SSR 圖標。
 If you want to start multiple Shadowsocks, make a copy in another directory.=如果想多開，您需要另外複製一份程序到別的目錄。
 Failed to decode QRCode=無法解析 QR 碼
 Failed to update registry=無法修改註冊表

@@ -19,7 +19,7 @@ namespace Shadowsocks.Properties {
     // 类通过类似于 ResGen 或 Visual Studio 的工具自动生成的。
     // 若要添加或移除成员，请编辑 .ResX 文件，然后重新运行 ResGen
     // (以 /str 作为命令选项)，或重新生成 VS 项目。
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -47,7 +47,7 @@ namespace Shadowsocks.Properties {
         }
         
         /// <summary>
-        ///   使用此强类型资源类，为所有资源查找
+        ///   重写当前线程的 CurrentUICulture 属性
         ///   重写当前线程的 CurrentUICulture 属性。
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -67,24 +67,25 @@ namespace Shadowsocks.Properties {
         ///
         ///# Menu items
         ///
-        ///Disable system proxy=不修改系统(IE)代理
-        ///Mode=系统代理模式
-        ///PAC=PAC 模式
-        ///Global=全局模式
+        ///Mode=代理模式
+        ///No modify system proxy=保持当前设置不变
+        ///Disable system proxy=直连
+        ///PAC=智能
+        ///Global=全局
+        ///PAC rule=智能代理配置
         ///Proxy rule=代理规则
-        ///Bypass LAN=绕过局域网
-        ///Bypass LAN &amp;&amp; China=绕过局域网和大陆
-        ///Bypass LAN &amp;&amp; not China=绕过局域网和非大陆
+        ///Bypass LAN=不代理局域网
+        ///Bypass LAN &amp;&amp; China=翻墙出国-不代理局域网+大陆
+        ///Bypass LAN &amp;&amp; not China=翻墙回国-不代理局域网+非大陆
+        ///User custom=用户自定义
         ///Disable bypass=全局
-        ///Servers=服务器
-        ///Edit servers...=编辑服务器...
-        ///Import servers from file...=从文件导入服务器...
-        ///Global settings...=选项设置...
-        ///Start on Boot=开机启动
-        ///Allow Clients from LAN=允许来自局域网的连接
-        ///Load balance=服务器负载均衡
-        ///Same host for same address=优先相同节点连接同一地址
-        ///Enable domai [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///Servers=服务线路
+        ///Servers Subscribe=订阅
+        ///Subscribe setting...=订阅设置
+        ///Update subscribe SSR node=更新订阅
+        ///Update subscribe SSR node(bypass proxy)=更新订阅（不通过代理）
+        ///Global settings...=选项设置
+        /// [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string cn {
             get {
@@ -113,22 +114,72 @@ namespace Shadowsocks.Properties {
         }
         
         /// <summary>
-        ///   查找 System.Byte[] 类型的本地化资源。
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static byte[] mgwz_dll {
+        internal static System.Drawing.Bitmap logo {
             get {
-                object obj = ResourceManager.GetObject("mgwz_dll", resourceCulture);
-                return ((byte[])(obj));
+                object obj = ResourceManager.GetObject("logo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap ngnl {
+        internal static System.Drawing.Bitmap logo128 {
             get {
-                object obj = ResourceManager.GetObject("ngnl", resourceCulture);
+                object obj = ResourceManager.GetObject("logo128", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap logo16 {
+            get {
+                object obj = ResourceManager.GetObject("logo16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap logo20 {
+            get {
+                object obj = ResourceManager.GetObject("logo20", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap logo32 {
+            get {
+                object obj = ResourceManager.GetObject("logo32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap logo64 {
+            get {
+                object obj = ResourceManager.GetObject("logo64", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Byte[] 类型的本地化资源。
+        /// </summary>
+        internal static byte[] mgwz_dll {
+            get {
+                object obj = ResourceManager.GetObject("mgwz_dll", resourceCulture);
+                return ((byte[])(obj));
             }
         }
         
@@ -169,46 +220,6 @@ namespace Shadowsocks.Properties {
         }
         
         /// <summary>
-        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
-        /// </summary>
-        internal static System.Drawing.Bitmap ss16 {
-            get {
-                object obj = ResourceManager.GetObject("ss16", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
-        /// </summary>
-        internal static System.Drawing.Bitmap ss20 {
-            get {
-                object obj = ResourceManager.GetObject("ss20", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
-        /// </summary>
-        internal static System.Drawing.Bitmap ss24 {
-            get {
-                object obj = ResourceManager.GetObject("ss24", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
-        /// </summary>
-        internal static System.Drawing.Bitmap ssw128 {
-            get {
-                object obj = ResourceManager.GetObject("ssw128", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   查找类似 ! Put user rules line by line in this file.
         ///! See https://adblockplus.org/en/filter-cheatsheet
         /// 的本地化字符串。
@@ -226,24 +237,24 @@ namespace Shadowsocks.Properties {
         ///
         ///# Menu items
         ///
-        ///Disable system proxy=不修改系統(IE)代理
-        ///Mode=系統代理模式
-        ///PAC=PAC 模式
-        ///Global=全局模式
+        ///Mode=代理模式
+        ///No modify system proxy=保持當前設置不變
+        ///Disable system proxy=直連
+        ///PAC=智能
+        ///Global=全局
+        ///PAC rule=智能代理配置
         ///Proxy rule=代理規則
-        ///Bypass LAN=绕过區域網路
-        ///Bypass LAN &amp;&amp; China=绕过區域網路和大陸
-        ///Bypass LAN &amp;&amp; not China=绕过區域網路和非大陸
+        ///Bypass LAN=不代理區域網路
+        ///Bypass LAN &amp;&amp; China=翻墻出國-不代理區域網路和大陸
+        ///Bypass LAN &amp;&amp; not China=翻墻回國-不代理區域網路和非大陸
+        ///User custom=用戶自定義
         ///Disable bypass=全局
-        ///Servers=伺服器
-        ///Edit servers...=編輯伺服器...
-        ///Import servers from file...=從文件導入伺服器...
-        ///Global settings...=選項設置...
-        ///Start on Boot=開機啟動
-        ///Allow Clients from LAN=允許來自區域網路的連接
-        ///Load balance=伺服器負載均衡
-        ///Same host for same address=優先相同節點連接同一位址
-        ///Enable  [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///Servers=伺服器線路
+        ///Servers Subscribe=訂閱
+        ///Subscribe setting...=訂閱設置...
+        ///Update subscribe SSR node=更新訂閱
+        ///Update subscribe SSR node(bypass proxy)=更新訂閱（不通過代理）
+        ///Global settings.. [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string zh_tw {
             get {

@@ -13,15 +13,15 @@ namespace Shadowsocks.Controller
 {
     public class UpdateChecker
     {
-        private const string UpdateURL = "https://raw.githubusercontent.com/shadowsocksrr/breakwa11.github.io/master/update/ssr-win-4.0.xml";
+        private const string UpdateURL = "https://ssr.otakuyun.com/clients/update/ssr-win-4.0.xml";
 
         public string LatestVersionNumber;
         public string LatestVersionURL;
         public event EventHandler NewVersionFound;
 
-        public const string Name = "ShadowsocksR";
-        public const string Copyright = "Copyright © BreakWa11 2017. Fork from Shadowsocks by clowwindy";
-        public const string Version = "4.9.0";
+        public const string Name = "OtakuSSR";
+        public const string Copyright = "Copyright © OtakuYun 2019. Fork from Shadowsocks by clowwindy";
+        public const string Version = "0.0.1";
 #if !_DOTNET_4_0
         public const string NetVer = "2.0";
 #elif !_CONSOLE

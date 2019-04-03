@@ -20,7 +20,7 @@ namespace Shadowsocks.View
         public PortSettingsForm(ShadowsocksController controller)
         {
             InitializeComponent();
-            this.Icon = Icon.FromHandle(Resources.ssw128.GetHicon());
+            this.Icon = Icon.FromHandle(Resources.logo128.GetHicon());
             this.controller = controller;
             controller.ConfigChanged += controller_ConfigChanged;
 

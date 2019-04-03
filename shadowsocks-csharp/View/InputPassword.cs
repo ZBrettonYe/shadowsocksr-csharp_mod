@@ -17,7 +17,7 @@ namespace Shadowsocks.View
         public InputPassword()
         {
             InitializeComponent();
-            this.Icon = Icon.FromHandle(Resources.ssw128.GetHicon());
+            this.Icon = Icon.FromHandle(Resources.logo128.GetHicon());
             this.Text = I18N.GetString("InputPassword");
             label_info.Text = I18N.GetString(label_info.Text);
         }

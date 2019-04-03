@@ -16,7 +16,7 @@ namespace Shadowsocks.View
         public ResetPassword()
         {
             InitializeComponent();
-            this.Icon = Icon.FromHandle(Resources.ssw128.GetHicon());
+            this.Icon = Icon.FromHandle(Resources.logo128.GetHicon());
             this.Text = I18N.GetString("ResetPassword");
         }
 

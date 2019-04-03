@@ -56,7 +56,7 @@ namespace Shadowsocks.View
             }
             catch
             {
-                this.Icon = Icon.FromHandle(Resources.ssw128.GetHicon());
+                this.Icon = Icon.FromHandle(Resources.logo128.GetHicon());
             }
             this.Font = System.Drawing.SystemFonts.MessageBoxFont;
             InitializeComponent();
