@@ -34,6 +34,7 @@ namespace Shadowsocks.Controller
         private HttpProxyRunner polipoRunner;
 #endif
         private GFWListUpdater gfwListUpdater;
+        private ChnDomainsAndIPUpdater chnDomainsAndIPUpdater;
         private bool stopped = false;
         private bool firstRun = true;
 
@@ -54,6 +55,7 @@ namespace Shadowsocks.Controller
         public event EventHandler<PathEventArgs> UserRuleFileReadyToOpen;
 
         public event EventHandler<GFWListUpdater.ResultEventArgs> UpdatePACFromGFWListCompleted;
+        public event EventHandler<ChnDomainsAndIPUpdater.ResultEventArgs> UpdatePACFromChnDomainsAndIPCompleted;
 
         public event ErrorEventHandler UpdatePACFromGFWListError;
 
@@ -345,18 +347,17 @@ namespace Shadowsocks.Controller
 
         public void UpdatePACFromGFWList()
         {
-            if (gfwListUpdater != null)
-            {
-                gfwListUpdater.UpdatePACFromGFWList(_config);
-            }
+            gfwListUpdater?.UpdatePACFromGFWList(_config);
+        }
+
+        public void UpdatePACFromChnDomainsAndIP(ChnDomainsAndIPUpdater.Templates template)
+        {
+            chnDomainsAndIPUpdater?.UpdatePACFromChnDomainsAndIP(_config, template);
         }
 
         public void UpdatePACFromOnlinePac(string url)
         {
-            if (gfwListUpdater != null)
-            {
-                gfwListUpdater.UpdatePACFromGFWList(_config, url);
-            }
+            gfwListUpdater?.UpdatePACFromGFWList(_config, url);
         }
 
         protected void Reload()
@@ -395,6 +396,12 @@ namespace Shadowsocks.Controller
                 gfwListUpdater = new GFWListUpdater();
                 gfwListUpdater.UpdateCompleted += pacServer_PACUpdateCompleted;
                 gfwListUpdater.Error += pacServer_PACUpdateError;
+            }
+            if (chnDomainsAndIPUpdater == null)
+            {
+                chnDomainsAndIPUpdater = new ChnDomainsAndIPUpdater();
+                chnDomainsAndIPUpdater.UpdateCompleted += pacServer_PACUpdateCompleted;
+                chnDomainsAndIPUpdater.Error += pacServer_PACUpdateError;
             }
 
             // don't put polipoRunner.Start() before pacServer.Stop()
@@ -537,14 +544,17 @@ namespace Shadowsocks.Controller
 
         private void pacServer_PACUpdateCompleted(object sender, GFWListUpdater.ResultEventArgs e)
         {
-            if (UpdatePACFromGFWListCompleted != null)
-                UpdatePACFromGFWListCompleted(sender, e);
+            UpdatePACFromGFWListCompleted?.Invoke(sender, e);
         }
 
         private void pacServer_PACUpdateError(object sender, ErrorEventArgs e)
         {
-            if (UpdatePACFromGFWListError != null)
-                UpdatePACFromGFWListError(sender, e);
+            UpdatePACFromGFWListError?.Invoke(sender, e);
+        }
+
+        private void pacServer_PACUpdateCompleted(object sender, ChnDomainsAndIPUpdater.ResultEventArgs e)
+        {
+            UpdatePACFromChnDomainsAndIPCompleted?.Invoke(sender, e);
         }
 
         public void ShowConfigForm(int index)

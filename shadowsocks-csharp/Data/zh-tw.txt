@@ -1,6 +1,6 @@
 # translation for Traditional Chinese
 
-Shadowsocks=Shadowsocks
+Shadowsocks=御宅云SSR
 
 # Menu items
 
@@ -28,8 +28,8 @@ Load balance=負載均衡
 Same host for same address=同址優先
 Enable domain white list(http proxy only)=使用域名白名單(僅http代理)
 Update local PAC from Lan IP list=不代理 區域網路IP
-Update local PAC from Chn White list=不代理 大陸常見網站
-Update local PAC from Chn IP list=不代理 大陸IP(慎用)
+Update local PAC from Chn Domain list=不代理 大陸常見網站
+Update local PAC from Chn Domain and IP list=不代理 大陸IP(慎用)
 Update local PAC from GFWList=代理 常見被墻網站（翻墻出國 推薦）
 Update local PAC from Chn Only list=代理 大陸常見網站（翻墻回國 推薦）
 Copy PAC URL=複製 規則網址
@@ -43,6 +43,7 @@ Server statistic...=連接統計
 Disconnect current=斷開連接
 Switch auto close TCP links=切換伺服器前斷開所有連接
 New version {0} {1} available=【點擊下載新版本 {0} {1}】
+No newer version was found=沒有找到新版本
 Help=幫助
 Check update=檢查更新
 Show logs...=顯示日誌...
@@ -215,9 +216,12 @@ You can turn on/off ShadowsocksR in the context menu=可以在右鍵菜單中開
 System Proxy Enabled=代理已啟用
 System Proxy Disabled=代理未啟用
 Failed to update PAC file =更新 智能代理規則 文件失敗
+Download ERROR=下載失敗
 PAC updated=更新 智能代理規則 成功
+GFWList PAC updated=更新 GFWList PAC 成功
 Domain white list list updated=更新域名白名單成功
 No updates found. Please report to GFWList if you have problems with it.=未發現更新。
+No updates found.=未發現更新。
 No QRCode found. Try to zoom in or move it to the center of the screen.=未發現 QR 碼，嘗試把QR碼放大或移動到屏幕中間
 ShadowsocksR is already running.=御宅雲SSR 已經在運行。
 Find Shadowsocks icon in your notify tray.=請在工作列裡尋找 御宅雲SSR 圖標。

@@ -63,7 +63,7 @@ namespace Shadowsocks.Properties {
         /// <summary>
         ///   查找类似 # translation for Simplified Chinese
         ///
-        ///Shadowsocks=Shadowsocks
+        ///Shadowsocks=御宅云SSR
         ///
         ///# Menu items
         ///
@@ -85,7 +85,7 @@ namespace Shadowsocks.Properties {
         ///Update subscribe SSR node=更新订阅
         ///Update subscribe SSR node(bypass proxy)=更新订阅（不通过代理）
         ///Global settings...=选项设置
-        /// [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///Start [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string cn {
             get {
@@ -233,7 +233,7 @@ namespace Shadowsocks.Properties {
         /// <summary>
         ///   查找类似 # translation for Traditional Chinese
         ///
-        ///Shadowsocks=Shadowsocks
+        ///Shadowsocks=御宅云SSR
         ///
         ///# Menu items
         ///
@@ -254,7 +254,7 @@ namespace Shadowsocks.Properties {
         ///Subscribe setting...=訂閱設置...
         ///Update subscribe SSR node=更新訂閱
         ///Update subscribe SSR node(bypass proxy)=更新訂閱（不通過代理）
-        ///Global settings.. [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///Global settings...=選項設 [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string zh_tw {
             get {

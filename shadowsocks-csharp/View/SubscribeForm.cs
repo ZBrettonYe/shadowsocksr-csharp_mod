@@ -40,6 +40,8 @@ namespace Shadowsocks.View
             checkBoxAutoUpdate.Text = I18N.GetString("Auto update");
             buttonOK.Text = I18N.GetString("OK");
             buttonCancel.Text = I18N.GetString("Cancel");
+            buttonAdd.Text = I18N.GetString("Add");
+            buttonDel.Text = I18N.GetString("Delete");
             label3.Text = I18N.GetString("Last Update");
         }
 
@@ -130,10 +132,6 @@ namespace Shadowsocks.View
                     DateTime now = new DateTime(1970, 1, 1, 0, 0, 0);
                     now = now.AddSeconds(ss.LastUpdateTime);
                     textUpdate.Text = now.ToLongDateString() + " " + now.ToLongTimeString();
-                }
-                else
-                {
-                    textUpdate.Text = "(｢･ω･)｢";
                 }
             }
         }

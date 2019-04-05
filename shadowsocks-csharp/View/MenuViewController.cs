@@ -70,8 +70,8 @@ namespace Shadowsocks.View
         private bool configfrom_open = false;
         private List<EventParams> eventList = new List<EventParams>();
 
-        [DllImport("user32.dll", CharSet = CharSet.Auto)]
-        static extern bool DestroyIcon(IntPtr handle);
+        [System.Runtime.InteropServices.DllImport("user32.dll", CharSet = CharSet.Auto)]
+        extern static bool DestroyIcon(IntPtr handle);
 
         public MenuViewController(ShadowsocksController controller)
         {
@@ -86,6 +86,7 @@ namespace Shadowsocks.View
             controller.UserRuleFileReadyToOpen += controller_FileReadyToOpen;
             controller.Errored += controller_Errored;
             controller.UpdatePACFromGFWListCompleted += controller_UpdatePACFromGFWListCompleted;
+            controller.UpdatePACFromChnDomainsAndIPCompleted += controller_UpdatePACFromChnDomainsAndIPCompleted;
             controller.UpdatePACFromGFWListError += controller_UpdatePACFromGFWListError;
             controller.ShowConfigFormEvent += Config_Click;
 
@@ -98,6 +99,7 @@ namespace Shadowsocks.View
 
             updateChecker = new UpdateChecker();
             updateChecker.NewVersionFound += updateChecker_NewVersionFound;
+            updateChecker.NewVersionNotFound += updateChecker_NewVersionNotFound;
 
             updateFreeNodeChecker = new UpdateFreeNode();
             updateFreeNodeChecker.NewFreeNodeFound += updateFreeNodeChecker_NewFreeNodeFound;
@@ -124,7 +126,7 @@ namespace Shadowsocks.View
                     timerDelayCheckUpdate.Interval = 1000.0 * 60 * 60 * 6;
                 }
             }
-            updateChecker.CheckUpdate(controller.GetCurrentConfiguration());
+            updateChecker.CheckUpdate(controller.GetCurrentConfiguration(), false);
 
             Configuration cfg = controller.GetCurrentConfiguration();
             if (cfg.isDefaultConfig() || cfg.nodeFeedAutoUpdate)
@@ -140,7 +142,7 @@ namespace Shadowsocks.View
 
         private void UpdateTrayIcon()
         {
-            int dpi = 96;
+            int dpi;
             using (Graphics graphics = Graphics.FromHwnd(IntPtr.Zero))
             {
                 dpi = (int)graphics.DpiX;
@@ -150,12 +152,19 @@ namespace Shadowsocks.View
             bool global = config.sysProxyMode == (int)ProxyMode.Global;
             bool random = config.random;
 
+            //The GetHicon method creates an icon in unmanaged memory.
+            //It may cause a memory leak.
+            //Use DestroyIcon(), https://stackoverflow.com/a/33801377
             try
-           {
-                Bitmap icon = new Bitmap("icon.png");
-               Icon newIcon = Icon.FromHandle(icon.GetHicon());
-              _notifyIcon.Icon = newIcon;
-               DestroyIcon(newIcon.Handle);
+            {
+                using (var icon = new Bitmap(@"icon.png"))
+                {
+                    var iconHandle = icon.GetHicon();
+                    var newIcon = Icon.FromHandle(iconHandle);
+                    _notifyIcon.Icon = (Icon)newIcon.Clone();
+                    newIcon.Dispose();
+                    DestroyIcon(iconHandle);
+                }
             }
             catch
             {
@@ -214,8 +223,8 @@ namespace Shadowsocks.View
                 CreateMenuGroup("PAC rule", new MenuItem[] {
                     CreateMenuItem("Update local PAC from Lan IP list", new EventHandler(this.UpdatePACFromLanIPListItem_Click)),
                     new MenuItem("-"),
-                    CreateMenuItem("Update local PAC from Chn White list", new EventHandler(this.UpdatePACFromCNWhiteListItem_Click)),
-                    CreateMenuItem("Update local PAC from Chn IP list", new EventHandler(this.UpdatePACFromCNIPListItem_Click)),
+                    CreateMenuItem("Update local PAC from Chn Domain list", new EventHandler(this.UpdatePACFromCNWhiteListItem_Click)),
+                    CreateMenuItem("Update local PAC from Chn Domain and IP list", new EventHandler(this.UpdatePACFromCNIPListItem_Click)),
                     CreateMenuItem("Update local PAC from GFWList", new EventHandler(this.UpdatePACFromGFWListItem_Click)),
                     new MenuItem("-"),
                     CreateMenuItem("Update local PAC from Chn Only list", new EventHandler(this.UpdatePACFromCNOnlyListItem_Click)),
@@ -275,19 +284,17 @@ namespace Shadowsocks.View
         {
             Configuration config = controller.GetCurrentConfiguration();
             UpdateSysProxyMode(config);
-            UpdateTrayIcon();
         }
 
         private void controller_ToggleRuleModeChanged(object sender, EventArgs e)
         {
             Configuration config = controller.GetCurrentConfiguration();
             UpdateProxyRule(config);
-            UpdateTrayIcon();
         }
 
         void controller_FileReadyToOpen(object sender, ShadowsocksController.PathEventArgs e)
         {
-            string argument = @"/select, " + e.Path;
+            string argument = "/select, " + e.Path;
 
             System.Diagnostics.Process.Start("explorer.exe", argument);
         }
@@ -302,7 +309,6 @@ namespace Shadowsocks.View
 
         void controller_UpdatePACFromGFWListError(object sender, System.IO.ErrorEventArgs e)
         {
-            GFWListUpdater updater = (GFWListUpdater)sender;
             ShowBalloonTip(I18N.GetString("Failed to update PAC file"), e.GetException().Message, ToolTipIcon.Error, 5000);
             Logging.LogUsefulException(e.GetException());
         }
@@ -311,9 +317,15 @@ namespace Shadowsocks.View
         {
             GFWListUpdater updater = (GFWListUpdater)sender;
             string result = e.Success ?
-                (updater.update_type <= 1 ? I18N.GetString("PAC updated") : I18N.GetString("Domain white list list updated"))
+                (updater.update_type < 1 ? I18N.GetString("GFWList PAC updated") : I18N.GetString("PAC updated"))
                 : I18N.GetString("No updates found. Please report to GFWList if you have problems with it.");
-            ShowBalloonTip(I18N.GetString("Shadowsocks"), result, ToolTipIcon.Info, 1000);
+            ShowBalloonTip(I18N.GetString("ShadowsocksR"), result, ToolTipIcon.Info, 1000);
+        }
+
+        void controller_UpdatePACFromChnDomainsAndIPCompleted(object sender, ChnDomainsAndIPUpdater.ResultEventArgs e)
+        {
+            var result = e.Success ? I18N.GetString("PAC updated") : I18N.GetString("No updates found.");
+            ShowBalloonTip(I18N.GetString("ShadowsocksR"), result, ToolTipIcon.Info, 1000);
         }
 
         void updateFreeNodeChecker_NewFreeNodeFound(object sender, EventArgs e)
@@ -601,6 +613,14 @@ namespace Shadowsocks.View
                 this.UpdateItem.Visible = true;
                 this.UpdateItem.Text = String.Format(I18N.GetString("New version {0} {1} available"), UpdateChecker.Name, updateChecker.LatestVersionNumber);
             }
+        }
+
+        void updateChecker_NewVersionNotFound(object sender, EventArgs e)
+        {
+            ShowBalloonTip($"{I18N.GetString("ShadowsocksR")} {UpdateChecker.FullVersion}", I18N.GetString("No newer version was found"), ToolTipIcon.Info, 10000);
+            timerDelayCheckUpdate.Elapsed -= timer_Elapsed;
+            timerDelayCheckUpdate.Stop();
+            timerDelayCheckUpdate = null;
         }
 
         void UpdateItem_Clicked(object sender, EventArgs e)
@@ -1078,22 +1098,22 @@ namespace Shadowsocks.View
 
         private void UpdatePACFromLanIPListItem_Click(object sender, EventArgs e)
         {
-            controller.UpdatePACFromOnlinePac("https://raw.githubusercontent.com/shadowsocksrr/breakwa11.github.io/master/ssr/ss_lanip.pac");
+            controller.UpdatePACFromOnlinePac("https://raw.githubusercontent.com/HMBSbige/Text_Translation/master/ShadowsocksR/ss_lanip.pac");
         }
 
         private void UpdatePACFromCNWhiteListItem_Click(object sender, EventArgs e)
         {
-            controller.UpdatePACFromOnlinePac("https://raw.githubusercontent.com/shadowsocksrr/breakwa11.github.io/master/ssr/ss_white.pac");
+            controller.UpdatePACFromChnDomainsAndIP(ChnDomainsAndIPUpdater.Templates.ss_white);
         }
 
         private void UpdatePACFromCNOnlyListItem_Click(object sender, EventArgs e)
         {
-            controller.UpdatePACFromOnlinePac("https://raw.githubusercontent.com/shadowsocksrr/breakwa11.github.io/master/ssr/ss_white_r.pac");
+            controller.UpdatePACFromChnDomainsAndIP(ChnDomainsAndIPUpdater.Templates.ss_white_r);
         }
 
         private void UpdatePACFromCNIPListItem_Click(object sender, EventArgs e)
         {
-            controller.UpdatePACFromOnlinePac("https://raw.githubusercontent.com/shadowsocksrr/breakwa11.github.io/master/ssr/ss_cnip.pac");
+            controller.UpdatePACFromChnDomainsAndIP(ChnDomainsAndIPUpdater.Templates.ss_cnip);
         }
 
         private void EditUserRuleFileForGFWListItem_Click(object sender, EventArgs e)
