@@ -94,6 +94,7 @@ SelectedFirst=選中優先
 Timer=定時切換
 Balance in group=所選組切換
 AutoBan=自動禁用出錯伺服器
+Enable Log = 開啟日誌
 
 Remote proxy=二級（前置）代理
 Proxy On=開啟代理
