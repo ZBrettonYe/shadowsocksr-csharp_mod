@@ -116,13 +116,7 @@ namespace Shadowsocks.Obfs
                     return;
                 }
                 _disposed = true;
-                Disposing();
             }
-        }
-
-        protected virtual void Disposing()
-        {
-
         }
         #endregion
 

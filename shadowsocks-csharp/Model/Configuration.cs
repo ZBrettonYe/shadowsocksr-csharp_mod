@@ -565,20 +565,6 @@ namespace Shadowsocks.Model
                     sw.Write(jsonString);
                     sw.Flush();
                 }
-
-                if (File.Exists(CONFIG_FILE_BACKUP))
-                {
-                    DateTime dt = File.GetLastWriteTimeUtc(CONFIG_FILE_BACKUP);
-                    DateTime now = DateTime.Now;
-                    if ((now - dt).TotalHours > 4)
-                    {
-                        File.Copy(CONFIG_FILE, CONFIG_FILE_BACKUP, true);
-                    }
-                }
-                else
-                {
-                    File.Copy(CONFIG_FILE, CONFIG_FILE_BACKUP, true);
-                }
             }
             catch (IOException e)
             {

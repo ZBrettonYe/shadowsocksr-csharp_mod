@@ -97,7 +97,7 @@ namespace Shadowsocks
                 _viewController = new MenuViewController(_controller);
 #endif
 
-            _controller.Start();
+                _controller.Start();
 
 #if !_CONSOLE
                 //Util.Utils.ReleaseMemory();

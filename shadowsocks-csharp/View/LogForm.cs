@@ -113,9 +113,7 @@ namespace Shadowsocks.View
             catch (FileNotFoundException)
             {
             }
-            catch (ArgumentNullException)
-            {
-            }
+
             Text = $@"{I18N.GetString("Log Viewer")} {_currentLogFileName}";
         }
 

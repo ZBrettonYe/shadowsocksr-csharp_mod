@@ -14,7 +14,7 @@
     <FileAlignment>512</FileAlignment>
     <StartupObject>
     </StartupObject>
-    <ApplicationIcon>shadowsocks.ico</ApplicationIcon>
+    <ApplicationIcon>favicon.ico</ApplicationIcon>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -148,14 +148,20 @@
   <ItemGroup>
     <None Include="Data\proxy.pac.txt.gz" />
     <None Include="Properties\DataSources\Shadowsocks.View.ConfigForm.datasource" />
-    <None Include="Resources\ss20.png" />
-    <None Include="Resources\ss16.png" />
-    <None Include="Resources\ss24.png" />
-    <None Include="Resources\ssw128.png" />
     <Content Include="Data\cn.txt" />
+    <None Include="Data\zh-tw.txt" />
     <None Include="Data\privoxy_conf.txt" />
     <Content Include="Data\user-rule.txt" />
-    <Content Include="shadowsocks.ico" />
+    <Content Include="favicon.ico" />
+    <None Include="Resources\logo16.png" />
+    <None Include="Resources\logo20.png" />
+    <None Include="Resources\logo24.png" />
+    <None Include="Resources\logow.png" />
+    <None Include="Resources\logo128.png" />
+    <None Include="Resources\logo48.png" />
+    <None Include="Resources\logo32.png" />
+    <None Include="Resources\logo64.png" />
+    <None Include="Resources\logo.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

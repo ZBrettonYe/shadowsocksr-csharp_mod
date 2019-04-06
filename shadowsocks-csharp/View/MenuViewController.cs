@@ -2,16 +2,19 @@
 using Shadowsocks.Model;
 using Shadowsocks.Properties;
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
-using System.Runtime.InteropServices;
-using System.Text.RegularExpressions;
-using System.Threading;
+using System.Text;
 using System.Windows.Forms;
+using System.Runtime.InteropServices;
+
 using ZXing;
 using ZXing.Common;
 using ZXing.QrCode;
+using System.Threading;
+using System.Text.RegularExpressions;
 
 namespace Shadowsocks.View
 {
@@ -70,9 +73,6 @@ namespace Shadowsocks.View
         private bool configfrom_open = false;
         private List<EventParams> eventList = new List<EventParams>();
 
-        [DllImport("user32.dll", CharSet = CharSet.Auto)]
-        static extern bool DestroyIcon(IntPtr handle);
-
         public MenuViewController(ShadowsocksController controller)
         {
             this.controller = controller;
@@ -115,13 +115,13 @@ namespace Shadowsocks.View
         {
             if (timerDelayCheckUpdate != null)
             {
-                //if (timerDelayCheckUpdate.Interval <= 1000.0 * 30)
-                //{
-                //    timerDelayCheckUpdate.Interval = 1000.0 * 60 * 5;
-                //}
-                //else
+                if (timerDelayCheckUpdate.Interval <= 1000.0 * 30)
                 {
-                    timerDelayCheckUpdate.Interval = 1000.0 * 60 * 60 * 6;
+                    timerDelayCheckUpdate.Interval = 1000.0 * 60 * 5;
+                }
+                else
+                {
+                    timerDelayCheckUpdate.Interval = 1000.0 * 60 * 60 * 2;
                 }
             }
             updateChecker.CheckUpdate(controller.GetCurrentConfiguration());
@@ -140,7 +140,7 @@ namespace Shadowsocks.View
 
         private void UpdateTrayIcon()
         {
-            int dpi = 96;
+            int dpi;
             using (Graphics graphics = Graphics.FromHwnd(IntPtr.Zero))
             {
                 dpi = (int)graphics.DpiX;
@@ -557,7 +557,7 @@ namespace Shadowsocks.View
                     controller.SaveServersConfig(config);
                 }
             }
-
+            
             if (count > 0)
             {
                 if (updateFreeNodeChecker.noitify)
@@ -1103,12 +1103,6 @@ namespace Shadowsocks.View
 
         private void AServerItem_Click(object sender, EventArgs e)
         {
-            Configuration config = controller.GetCurrentConfiguration();
-            Console.WriteLine("config.checkSwitchAutoCloseAll:" + config.checkSwitchAutoCloseAll);
-            if (config.checkSwitchAutoCloseAll)
-            {
-                controller.DisconnectAllConnections();
-            }
             MenuItem item = (MenuItem)sender;
             controller.SelectServerIndex((int)item.Tag);
         }
@@ -1150,7 +1144,12 @@ namespace Shadowsocks.View
 
         private void DisconnectCurrent_Click(object sender, EventArgs e)
         {
-            controller.DisconnectAllConnections();
+            Configuration config = controller.GetCurrentConfiguration();
+            for (int id = 0; id < config.configs.Count; ++id)
+            {
+                Server server = config.configs[id];
+                server.GetConnections().CloseAll();
+            }
         }
 
         private void URL_Split(string text, ref List<string> out_urls)
