@@ -46,7 +46,7 @@ namespace Shadowsocks.View
             if (updateChecker.LatestVersionURL == null)
                 LinkUpdate.Visible = false;
 
-            foreach (string name in EncryptorFactory.GetEncryptor().Keys)
+            foreach (string name in EncryptorFactory.GetEncryptor())
             {
                 EncryptorInfo info = EncryptorFactory.GetEncryptorInfo(name);
                 if (info.display)
@@ -208,8 +208,8 @@ namespace Shadowsocks.View
                 Server server = new Server
                 {
                     server = IPTextBox.Text.Trim(),
-                    server_port = Convert.ToUInt16(NumServerPort.Value),
-                    server_udp_port = Convert.ToUInt16(NumUDPPort.Value),
+                    server_port = Convert.ToInt32(NumServerPort.Value),
+                    server_udp_port = Convert.ToInt32(NumUDPPort.Value),
                     password = PasswordTextBox.Text,
                     method = EncryptionSelect.Text,
                     protocol = TCPProtocolComboBox.Text,
@@ -260,6 +260,8 @@ namespace Shadowsocks.View
             using (Graphics g = Graphics.FromImage(drawArea))
             {
                 g.Clear(Color.White);
+                Bitmap ngnl = Resources.logo;
+                g.DrawImage(ngnl, new Rectangle(0, 0, width, width));
                 if (!_modifiedConfiguration.isHideTips)
                     g.DrawString("Click the 'Link' text box", new Font("Arial", 14), new SolidBrush(Color.Black), new RectangleF(0, 0, 300, 300));
             }
@@ -294,8 +296,10 @@ namespace Shadowsocks.View
                             }
                         }
                     }
+                    Bitmap ngnl = Resources.logo;
                     int div = 13, div_l = 5, div_r = 8;
                     int l = (m.Width * div_l + div - 1) / div * blockSize, r = (m.Width * div_r + div - 1) / div * blockSize;
+                    g.DrawImage(ngnl, new Rectangle(l + blockSize, l + blockSize, r - l, r - l));
                 }
                 PictureQRcode.Image = drawArea;
                 PictureQRcode.Visible = true;
@@ -461,10 +465,7 @@ namespace Shadowsocks.View
             else
             {
                 var items = ServersListBox.SelectedIndices;
-                if (0 == items.Count)
-                    index = 0;
-                else
-                    index = (style == 1 ? items[0] : items[items.Count - 1]);
+                index = (style == 1 ? items[0] : items[items.Count - 1]);
             }
             int topIndex = Math.Max(index - visibleItems / 2, 0);
             ServersListBox.TopIndex = topIndex;
@@ -584,13 +585,6 @@ namespace Shadowsocks.View
                     LoadSelectedServer();
                 }
             }
-            else if (0 == items.Count)
-            {
-                // Handle when server list is empty.
-                _oldSelectedIndex = -1;
-                ServersListBox.ClearSelected();
-                LoadSelectedServer();
-            }
             else
             {
                 List<int> all_items = new List<int>();
@@ -606,9 +600,7 @@ namespace Shadowsocks.View
                 }
                 _allowSave = false;
                 _ignoreLoad = true;
-
                 ServersListBox.SelectedIndex = _oldSelectedIndex = index - 1;
-
                 LoadConfiguration(_modifiedConfiguration);
                 ServersListBox.ClearSelected();
                 foreach (int item in all_items)
@@ -616,9 +608,7 @@ namespace Shadowsocks.View
                     if (item != index)
                         ServersListBox.SelectedIndex = _oldSelectedIndex = item - 1;
                 }
-
                 ServersListBox.SelectedIndex = _oldSelectedIndex = index - 1;
-
                 _ignoreLoad = false;
                 _allowSave = true;
                 LoadSelectedServer();
@@ -645,13 +635,6 @@ namespace Shadowsocks.View
                     LoadSelectedServer();
                 }
             }
-            else if (0 == items.Count)
-            {
-                // Handle when server list is empty.
-                _oldSelectedIndex = -1;
-                ServersListBox.ClearSelected();
-                LoadSelectedServer();
-            }
             else
             {
                 List<int> rev_items = new List<int>();
@@ -668,9 +651,7 @@ namespace Shadowsocks.View
                 }
                 _allowSave = false;
                 _ignoreLoad = true;
-
                 ServersListBox.SelectedIndex = _oldSelectedIndex = index + 1;
-
                 LoadConfiguration(_modifiedConfiguration);
                 ServersListBox.ClearSelected();
                 foreach (int item in rev_items)
@@ -678,9 +659,7 @@ namespace Shadowsocks.View
                     if (item != index)
                         ServersListBox.SelectedIndex = _oldSelectedIndex = item + 1;
                 }
-
                 ServersListBox.SelectedIndex = _oldSelectedIndex = index + 1;
-
                 _ignoreLoad = false;
                 _allowSave = true;
                 LoadSelectedServer();

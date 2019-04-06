@@ -9,7 +9,7 @@
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Shadowsocks</RootNamespace>
-    <AssemblyName>御宅云SSR_XP特供版</AssemblyName>
+    <AssemblyName>ShadowsocksR</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <StartupObject>Shadowsocks.Program</StartupObject>
@@ -308,6 +308,7 @@
     <None Include="Resources\logo32.png" />
     <None Include="Resources\logo64.png" />
     <None Include="Resources\logo.png" />
+    <Content Include="shadowsocks.ico" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

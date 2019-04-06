@@ -1,9 +1,8 @@
-﻿using Shadowsocks.Controller;
-using Shadowsocks.Encryption;
-using Shadowsocks.Encryption.Stream;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Shadowsocks.Controller;
 using System.Security.Cryptography;
+using Shadowsocks.Encryption;
 
 namespace Shadowsocks.Obfs
 {
@@ -963,7 +962,7 @@ namespace Shadowsocks.Obfs
 
                 byte[] encrypt_key = user_key;
 
-                var encryptor = (StreamEncryptor)EncryptorFactory.GetEncryptor("aes-128-cbc", System.Convert.ToBase64String(encrypt_key) + SALT);
+                Encryption.IEncryptor encryptor = Encryption.EncryptorFactory.GetEncryptor("aes-128-cbc", System.Convert.ToBase64String(encrypt_key) + SALT, false);
                 int enc_outlen;
 
                 encryptor.SetIV(new byte[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 });
@@ -1069,7 +1068,7 @@ namespace Shadowsocks.Obfs
                     {
                         send_len = TrapezoidRandomInt(Math.Min(datalength - 1, Server.tcp_mss - overhead) - 1, -0.3) + 1;  // must less than datalength
 #else
-            if (datalength > 120 * 4 && pack_id < 64)
+            if (datalength > 120 * 4 && pack_id < 64 )
             {
                 int send_len = LinearRandomInt(datalength + 120 * 4);
                 if (send_len < datalength)

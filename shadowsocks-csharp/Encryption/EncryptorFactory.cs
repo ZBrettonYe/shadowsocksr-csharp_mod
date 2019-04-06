@@ -1,70 +1,76 @@
-﻿using Shadowsocks.Encryption.Stream;
+﻿
 using System;
 using System.Collections.Generic;
-
+using System.Reflection;
 namespace Shadowsocks.Encryption
 {
     public static class EncryptorFactory
     {
-        private static readonly Dictionary<string, Type> _registeredEncryptors = new Dictionary<string, Type>();
+        private static Dictionary<string, Type> _registeredEncryptors;
+        private static List<string> _registeredEncryptorNames;
 
-        private static Type[] _constructorTypes = { typeof(string), typeof(string) };
+        private static Type[] _constructorTypes = new Type[] { typeof(string), typeof(string), typeof(bool) };
 
         static EncryptorFactory()
         {
-            foreach (var method in NoneEncryptor.SupportedCiphers())
+            _registeredEncryptors = new Dictionary<string, Type>();
+            _registeredEncryptorNames = new List<string>();
+            foreach (string method in NoneEncryptor.SupportedCiphers())
             {
-                if (!_registeredEncryptors.ContainsKey(method))
+                if (!_registeredEncryptorNames.Contains(method))
                 {
+                    _registeredEncryptorNames.Add(method);
                     _registeredEncryptors.Add(method, typeof(NoneEncryptor));
                 }
             }
 
-            foreach (var method in StreamOpenSSLEncryptor.SupportedCiphers())
             {
-                if (!_registeredEncryptors.ContainsKey(method))
+                foreach (string method in MbedTLSEncryptor.SupportedCiphers())
                 {
-                    _registeredEncryptors.Add(method, typeof(StreamOpenSSLEncryptor));
+                    if (!_registeredEncryptorNames.Contains(method))
+                    {
+                        _registeredEncryptorNames.Add(method);
+                        _registeredEncryptors.Add(method, typeof(MbedTLSEncryptor));
+                    }
                 }
             }
-
-
-            foreach (var method in StreamSodiumEncryptor.SupportedCiphers())
+            if (LibcryptoEncryptor.isSupport())
             {
-                if (!_registeredEncryptors.ContainsKey(method))
+                LibcryptoEncryptor.InitAviable();
+                foreach (string method in LibcryptoEncryptor.SupportedCiphers())
                 {
-                    _registeredEncryptors.Add(method, typeof(StreamSodiumEncryptor));
+                    if (!_registeredEncryptorNames.Contains(method))
+                    {
+                        _registeredEncryptorNames.Add(method);
+                        _registeredEncryptors.Add(method, typeof(LibcryptoEncryptor));
+                    }
                 }
             }
-
-            foreach (var method in StreamMbedTLSEncryptor.SupportedCiphers())
+            foreach (string method in SodiumEncryptor.SupportedCiphers())
             {
-                if (!_registeredEncryptors.ContainsKey(method))
+                if (!_registeredEncryptorNames.Contains(method))
                 {
-                    _registeredEncryptors.Add(method, typeof(StreamMbedTLSEncryptor));
+                    _registeredEncryptorNames.Add(method);
+                    _registeredEncryptors.Add(method, typeof(SodiumEncryptor));
                 }
             }
         }
 
-        public static Dictionary<string, Type> GetEncryptor()
+        public static List<string> GetEncryptor()
         {
-            return _registeredEncryptors;
+            return _registeredEncryptorNames;
         }
 
-        public static IEncryptor GetEncryptor(string method, string password)
+        public static IEncryptor GetEncryptor(string method, string password, bool cache)
         {
             if (string.IsNullOrEmpty(method))
             {
                 method = "aes-256-cfb";
             }
             method = method.ToLowerInvariant();
-            var t = _registeredEncryptors[method];
-            var c = t.GetConstructor(_constructorTypes);
-            if (c == null)
-            {
-                throw new Exception("Invalid ctor");
-            }
-            var result = (IEncryptor)c.Invoke(new object[] { method, password });
+            Type t = _registeredEncryptors[method];
+            ConstructorInfo c = t.GetConstructor(_constructorTypes);
+            IEncryptor result = (IEncryptor)c.Invoke(new object[] { method, password, cache });
             return result;
         }
 
@@ -75,14 +81,10 @@ namespace Shadowsocks.Encryption
                 method = "aes-256-cfb";
             }
             method = method.ToLowerInvariant();
-            var t = _registeredEncryptors[method];
-            var c = t.GetConstructor(_constructorTypes);
-            if (c == null)
-            {
-                throw new Exception("Invalid ctor");
-            }
-            var result = (IEncryptor)c.Invoke(new object[] { method, "0"});
-            var info = result.getInfo();
+            Type t = _registeredEncryptors[method];
+            ConstructorInfo c = t.GetConstructor(_constructorTypes);
+            IEncryptor result = (IEncryptor)c.Invoke(new object[] { method, "0", false });
+            EncryptorInfo info = result.getInfo();
             result.Dispose();
             return info;
         }

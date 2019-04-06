@@ -1,38 +1,37 @@
 ﻿using Shadowsocks.Model;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Net;
 using System.Reflection;
+using System.Text;
 using System.Text.RegularExpressions;
-using System.Windows.Forms;
 using System.Xml;
+using System.Windows.Forms;
 
 namespace Shadowsocks.Controller
 {
     public class UpdateChecker
     {
-        private const string UpdateURL = @"https://ssr.otakuyun.com/clients/update/ssr-win-4.0.xml";
-
-        private const string USER_AGENT = @"Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.3319.102 Safari/537.36";
+        private const string UpdateURL = "https://ssr.otakuyun.com/clients/update/ssr-win-4.0.xml";
 
         public string LatestVersionNumber;
         public string LatestVersionURL;
         public event EventHandler NewVersionFound;
-        public event EventHandler NewVersionNotFound;
 
         public const string Name = "OtakuSSR";
         public const string Copyright = "Copyright © OtakuYun 2019. Fork from Shadowsocks by clowwindy";
         public const string Version = "0.0.1";
 #if !_DOTNET_4_0
-        public const string NetVer = @"2.0";
+        public const string NetVer = "2.0";
 #elif !_CONSOLE
-        public const string NetVer = @"4.0";
+        public const string NetVer = "4.0";
 #else
         public const string NetVer = "";
 #endif
         public const string FullVersion = Version +
 #if DEBUG
-        @" Debug";
+        " Debug";
 #else
 /*
         " Alpha";
@@ -43,12 +42,15 @@ namespace Shadowsocks.Controller
 
         private static bool UseProxy = true;
 
-        public void CheckUpdate(Configuration config, bool notifyNoFound = true)
+        public void CheckUpdate(Configuration config)
         {
             try
             {
                 WebClient http = new WebClient();
-                http.Headers.Add(@"User-Agent", string.IsNullOrEmpty(config.proxyUserAgent) ? USER_AGENT : config.proxyUserAgent);
+                http.Headers.Add("User-Agent",
+                String.IsNullOrEmpty(config.proxyUserAgent) ?
+                "Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.3319.102 Safari/537.36"
+                : config.proxyUserAgent);
                 if (UseProxy)
                 {
                     WebProxy proxy = new WebProxy(IPAddress.Loopback.ToString(), config.localPort);
@@ -63,15 +65,8 @@ namespace Shadowsocks.Controller
                     http.Proxy = null;
                 }
                 //UseProxy = !UseProxy;
-                if (notifyNoFound)
-                {
-                    http.DownloadStringCompleted += http_DownloadStringCompleted;
-                }
-                else
-                {
-                    http.DownloadStringCompleted += http_DownloadStringCompleted2;
-                }
-                http.DownloadStringAsync(new Uri(UpdateURL + @"?rnd=" + Util.Utils.RandUInt32().ToString()));
+                http.DownloadStringCompleted += http_DownloadStringCompleted;
+                http.DownloadStringAsync(new Uri(UpdateURL + "?rnd=" + Util.Utils.RandUInt32().ToString()));
             }
             catch (Exception e)
             {
@@ -95,7 +90,7 @@ namespace Shadowsocks.Controller
             return 0;
         }
 
-        private class VersionComparer : IComparer<string>
+        public class VersionComparer : IComparer<string>
         {
             // Calls CaseInsensitiveComparer.Compare with the parameters reversed. 
             public int Compare(string x, string y)
@@ -125,7 +120,7 @@ namespace Shadowsocks.Controller
 
         private bool IsNewVersion(string url)
         {
-            if (url.IndexOf(@"prerelease", StringComparison.Ordinal) >= 0)
+            if (url.IndexOf("prerelease") >= 0)
             {
                 return false;
             }
@@ -134,21 +129,21 @@ namespace Shadowsocks.Controller
             Version dotNetVersion = Environment.Version;
             foreach (AssemblyName reference in references)
             {
-                if (reference.Name == @"mscorlib")
+                if (reference.Name == "mscorlib")
                 {
                     dotNetVersion = reference.Version;
                 }
             }
             if (dotNetVersion.Major >= 4)
             {
-                if (url.IndexOf(@"dotnet4.0", StringComparison.Ordinal) < 0)
+                if (url.IndexOf("dotnet4.0") < 0)
                 {
                     return false;
                 }
             }
             else
             {
-                if (url.IndexOf(@"dotnet4.0", StringComparison.Ordinal) >= 0)
+                if (url.IndexOf("dotnet4.0") >= 0)
                 {
                     return false;
                 }
@@ -160,8 +155,8 @@ namespace Shadowsocks.Controller
             }
             string currentVersion = Version;
 
-            if (url.IndexOf(@"banned", StringComparison.Ordinal) > 0 && CompareVersion(version, currentVersion) == 0
-                || url.IndexOf(@"deprecated", StringComparison.Ordinal) > 0 && CompareVersion(version, currentVersion) > 0)
+            if (url.IndexOf("banned") > 0 && CompareVersion(version, currentVersion) == 0
+                || url.IndexOf("deprecated") > 0 && CompareVersion(version, currentVersion) > 0)
             {
                 Application.Exit();
                 return false;
@@ -177,32 +172,33 @@ namespace Shadowsocks.Controller
 
                 XmlDocument xmlDoc = new XmlDocument();
                 xmlDoc.LoadXml(response);
-                XmlNodeList elements = xmlDoc.GetElementsByTagName(@"media:content");
+                XmlNodeList elements = xmlDoc.GetElementsByTagName("media:content");
                 List<string> versions = new List<string>();
                 foreach (XmlNode el in elements)
                 {
-                    if (el.Attributes != null)
-                        foreach (XmlAttribute attr in el.Attributes)
+                    foreach (XmlAttribute attr in el.Attributes)
+                    {
+                        if (attr.Name == "url")
                         {
-                            if (attr.Name == @"url")
+                            if (IsNewVersion(attr.Value))
                             {
-                                if (IsNewVersion(attr.Value))
-                                {
-                                    versions.Add(attr.Value);
-                                }
+                                versions.Add(attr.Value);
                             }
                         }
+                    }
                 }
                 if (versions.Count == 0)
                 {
-                    NewVersionNotFound?.Invoke(this, new EventArgs());
                     return;
                 }
                 // sort versions
                 SortVersions(versions);
                 LatestVersionURL = versions[versions.Count - 1];
                 LatestVersionNumber = ParseVersionFromURL(LatestVersionURL);
-                NewVersionFound?.Invoke(this, new EventArgs());
+                if (NewVersionFound != null)
+                {
+                    NewVersionFound(this, new EventArgs());
+                }
             }
             catch (Exception ex)
             {
@@ -211,55 +207,11 @@ namespace Shadowsocks.Controller
                     Logging.Debug(e.Error.ToString());
                 }
                 Logging.Debug(ex.ToString());
-                NewVersionFound?.Invoke(this, new EventArgs());
-            }
-        }
-
-        private void http_DownloadStringCompleted2(object sender, DownloadStringCompletedEventArgs e)
-        {
-            try
-            {
-                string response = e.Result;
-
-                XmlDocument xmlDoc = new XmlDocument();
-                xmlDoc.LoadXml(response);
-                XmlNodeList elements = xmlDoc.GetElementsByTagName(@"media:content");
-                List<string> versions = new List<string>();
-                foreach (XmlNode el in elements)
+                if (NewVersionFound != null)
                 {
-                    if (el.Attributes != null)
-                        foreach (XmlAttribute attr in el.Attributes)
-                        {
-                            if (attr.Name == @"url")
-                            {
-                                if (IsNewVersion(attr.Value))
-                                {
-                                    versions.Add(attr.Value);
-                                }
-                            }
-                        }
+                    NewVersionFound(this, new EventArgs());
                 }
-
-                if (versions.Count == 0)
-                {
-                    return;
-                }
-
-                // sort versions
-                SortVersions(versions);
-                LatestVersionURL = versions[versions.Count - 1];
-                LatestVersionNumber = ParseVersionFromURL(LatestVersionURL);
-                NewVersionFound?.Invoke(this, new EventArgs());
-            }
-            catch (Exception ex)
-            {
-                if (e.Error != null)
-                {
-                    Logging.Debug(e.Error.ToString());
-                }
-
-                Logging.Debug(ex.ToString());
-                NewVersionFound?.Invoke(this, new EventArgs());
+                return;
             }
         }
     }
