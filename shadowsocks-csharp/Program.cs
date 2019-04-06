@@ -50,7 +50,7 @@ namespace Shadowsocks
 
                 if (!mutex.WaitOne(0, false))
                 {
-                    MessageBox.Show(I18N.GetString("Find Shadowsocks icon in your notify tray.") + "\n" +
+                    MessageBox.Show(I18N.GetString("Find Shadowsocks icon in your notify tray.") + Environment.NewLine +
                         I18N.GetString("If you want to start multiple Shadowsocks, make a copy in another directory."),
                         I18N.GetString("ShadowsocksR is already running."));
                     return;
@@ -58,8 +58,8 @@ namespace Shadowsocks
 #endif
                 Directory.SetCurrentDirectory(Application.StartupPath);
 
-#if !_CONSOLE
                 int try_times = 0;
+#if !_CONSOLE
                 while (Configuration.Load() == null)
                 {
                     if (try_times >= 5)
@@ -73,31 +73,26 @@ namespace Shadowsocks
                     }
                     try_times += 1;
                 }
+#endif
+                //#if !DEBUG
                 if (try_times > 0)
                     Logging.save_to_file = false;
-#endif
-
+                Logging.OpenLogFile();
+                //#endif
                 _controller = new ShadowsocksController();
                 HostMap.Instance().LoadHostFile();
 
-                // Logging
-                Configuration cfg = _controller.GetConfiguration();
-                Logging.save_to_file = cfg.logEnable;
-
-                //#if !DEBUG
-                Logging.OpenLogFile();
-                //#endif
-
-#if _DOTNET_4_0
+#if _DOTNET_CURRENT
                 // Enable Modern TLS when .NET 4.5+ installed.
                 if (Util.EnvCheck.CheckDotNet45())
                     ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
 #endif
+
 #if !_CONSOLE
                 _viewController = new MenuViewController(_controller);
 #endif
 
-            _controller.Start();
+                _controller.Start();
 
 #if !_CONSOLE
                 //Util.Utils.ReleaseMemory();

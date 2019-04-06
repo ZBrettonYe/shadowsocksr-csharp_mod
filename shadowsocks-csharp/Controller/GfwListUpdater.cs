@@ -14,9 +14,9 @@ namespace Shadowsocks.Controller
     {
         private const string GFWLIST_URL = "https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt";
 
-        private const string GFWLIST_BACKUP_URL = "https://ssr.otakuyun.com/clients/ssr/gfwlist.txt";
+        private const string GFWLIST_BACKUP_URL = "https://raw.githubusercontent.com/HMBSbige/Text_Translation/master/ShadowsocksR/gfwlist.txt";
 
-        private const string GFWLIST_TEMPLATE_URL = "https://raw.githubusercontent.com/shadowsocksrr/breakwa11.github.io/master/ssr/ss_gfw.pac";
+        private const string GFWLIST_TEMPLATE_URL = "https://raw.githubusercontent.com/HMBSbige/Text_Translation/master/ShadowsocksR/ss_gfw.pac";
 
         private const string USER_AGENT = @"Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.3319.102 Safari/537.36";
 
