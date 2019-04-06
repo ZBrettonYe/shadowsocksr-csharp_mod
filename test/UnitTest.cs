@@ -1,10 +1,9 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Shadowsocks.Controller;
 using Shadowsocks.Encryption;
-using Shadowsocks.Encryption.Stream;
-using System;
+using System.Threading;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace test
 {
@@ -25,172 +24,155 @@ namespace test
 
         private void RunEncryptionRound(IEncryptor encryptor, IEncryptor decryptor)
         {
-            var plain = new byte[16384];
-            var cipher = new byte[plain.Length + 16];
-            var plain2 = new byte[plain.Length + 16];
+            byte[] plain = new byte[16384];
+            byte[] cipher = new byte[plain.Length + 16];
+            byte[] plain2 = new byte[plain.Length + 16];
+            int outLen = 0;
+            int outLen2 = 0;
             var random = new Random();
             random.NextBytes(plain);
-            encryptor.Encrypt(plain, plain.Length, cipher, out var outLen);
-            decryptor.Decrypt(cipher, outLen, plain2, out var outLen2);
+            encryptor.Encrypt(plain, plain.Length, cipher, out outLen);
+            decryptor.Decrypt(cipher, outLen, plain2, out outLen2);
             Assert.AreEqual(plain.Length, outLen2);
-            for (var j = 0; j < plain.Length; j++)
+            for (int j = 0; j < plain.Length; j++)
             {
                 Assert.AreEqual(plain[j], plain2[j]);
             }
             encryptor.Encrypt(plain, 1000, cipher, out outLen);
             decryptor.Decrypt(cipher, outLen, plain2, out outLen2);
             Assert.AreEqual(1000, outLen2);
-            for (var j = 0; j < outLen2; j++)
+            for (int j = 0; j < outLen2; j++)
             {
                 Assert.AreEqual(plain[j], plain2[j]);
             }
             encryptor.Encrypt(plain, 12333, cipher, out outLen);
             decryptor.Decrypt(cipher, outLen, plain2, out outLen2);
             Assert.AreEqual(12333, outLen2);
-            for (var j = 0; j < outLen2; j++)
+            for (int j = 0; j < outLen2; j++)
             {
                 Assert.AreEqual(plain[j], plain2[j]);
             }
         }
 
-        public TestContext TestContext { get; set; }
+        private static bool encryptionFailed = false;
+        private static object locker = new object();
 
         [TestMethod]
-        public void TestStreamOpenSSLEncryption()
+        public void TestPolarSSLEncryption()
         {
-            var failed = false;
             // run it once before the multi-threading test to initialize global tables
-            RunSingleStreamOpenSSLEncryptionThread();
-
-            var tasks = new List<Task>();
-            foreach (var cipher in StreamOpenSSLEncryptor.SupportedCiphers())
+            RunSinglePolarSSLEncryptionThread();
+            List<Thread> threads = new List<Thread>();
+            for (int i = 0; i < 10; i++)
             {
-                if (cipher.EndsWith(@"-cbc"))
-                {
-                    continue;
-                }
-                var t = new Task(() =>
-                {
-                    try
-                    {
-                        RunSingleStreamOpenSSLEncryptionThread(cipher);
-                    }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine($@"{cipher}:{e.Message}");
-                        throw;
-                        failed = true;
-                    }
-                });
-                tasks.Add(t);
+                Thread t = new Thread(new ThreadStart(RunSinglePolarSSLEncryptionThread));
+                threads.Add(t);
                 t.Start();
             }
-
-            Task.WaitAll(tasks.ToArray());
-            Assert.IsFalse(failed);
+            foreach (Thread t in threads)
+            {
+                t.Join();
+            }
+            Assert.IsFalse(encryptionFailed);
         }
 
-        private void RunSingleStreamOpenSSLEncryptionThread(string methodName = @"aes-256-cfb8", string password = @"barfoo!")
+        private void RunSinglePolarSSLEncryptionThread()
         {
-            for (var i = 0; i < 100; i++)
+            try
             {
-                IEncryptor encryptor;
-                IEncryptor decryptor;
-                encryptor = new StreamOpenSSLEncryptor(methodName, password);
-                decryptor = new StreamOpenSSLEncryptor(methodName, password);
-                RunEncryptionRound(encryptor, decryptor);
+                for (int i = 0; i < 100; i++)
+                {
+                    IEncryptor encryptor;
+                    IEncryptor decryptor;
+                    encryptor = new MbedTLSEncryptor("aes-256-cfb", "barfoo!", false);
+                    decryptor = new MbedTLSEncryptor("aes-256-cfb", "barfoo!", false);
+                    RunEncryptionRound(encryptor, decryptor);
+                }
+            }
+            catch
+            {
+                encryptionFailed = true;
+                throw;
             }
         }
 
         [TestMethod]
-        public void TestStreamMbedTLSEncryption()
+        public void TestRC4Encryption()
         {
-            var failed = false;
             // run it once before the multi-threading test to initialize global tables
-            RunSingleStreamMbedTLSEncryptionThread();
-            var tasks = new List<Task>();
-            foreach (var cipher in StreamMbedTLSEncryptor.SupportedCiphers())
+            RunSingleRC4EncryptionThread();
+            List<Thread> threads = new List<Thread>();
+            for (int i = 0; i < 10; i++)
             {
-                if (cipher.EndsWith(@"-cbc"))
-                {
-                    continue;
-                }
-                var t = new Task(() =>
-                {
-                    try
-                    {
-                        RunSingleStreamMbedTLSEncryptionThread(cipher);
-                    }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine($@"{cipher}:{e.Message}");
-                        throw;
-                        failed = true;
-                    }
-                });
-                tasks.Add(t);
+                Thread t = new Thread(new ThreadStart(RunSingleRC4EncryptionThread));
+                threads.Add(t);
                 t.Start();
             }
-
-            Task.WaitAll(tasks.ToArray());
-            Assert.IsFalse(failed);
+            foreach (Thread t in threads)
+            {
+                t.Join();
+            }
+            Assert.IsFalse(encryptionFailed);
         }
 
-        private void RunSingleStreamMbedTLSEncryptionThread(string methodName = @"rc4-md5-6", string password = @"barfoo!")
+        private void RunSingleRC4EncryptionThread()
         {
-            for (var i = 0; i < 100; i++)
+            try
             {
-                IEncryptor encryptor;
-                IEncryptor decryptor;
-                encryptor = new StreamMbedTLSEncryptor(methodName, password);
-                decryptor = new StreamMbedTLSEncryptor(methodName, password);
-                RunEncryptionRound(encryptor, decryptor);
+                for (int i = 0; i < 100; i++)
+                {
+                    var random = new Random();
+                    IEncryptor encryptor;
+                    IEncryptor decryptor;
+                    encryptor = new MbedTLSEncryptor("rc4-md5", "barfoo!", false);
+                    decryptor = new MbedTLSEncryptor("rc4-md5", "barfoo!", false);
+                    RunEncryptionRound(encryptor, decryptor);
+                }
+            }
+            catch
+            {
+                encryptionFailed = true;
+                throw;
             }
         }
 
         [TestMethod]
-        public void TestStreamSodiumEncryption()
+        public void TestSodiumEncryption()
         {
-            var failed = false;
             // run it once before the multi-threading test to initialize global tables
-            RunSingleStreamSodiumEncryptionThread();
-            var tasks = new List<Task>();
-            foreach (var cipher in StreamSodiumEncryptor.SupportedCiphers())
+            RunSingleSodiumEncryptionThread();
+            List<Thread> threads = new List<Thread>();
+            for (int i = 0; i < 10; i++)
             {
-                if (cipher.StartsWith(@"x"))
-                {
-                    continue;
-                }
-                var t = new Task(() =>
-                {
-                    try
-                    {
-                        RunSingleStreamSodiumEncryptionThread(cipher);
-                    }
-                    catch (Exception e)
-                    {
-                        TestContext.WriteLine($@"{cipher}:{e.Message}");
-                        throw;
-                        failed = true;
-                    }
-                });
-                tasks.Add(t);
+                Thread t = new Thread(new ThreadStart(RunSingleSodiumEncryptionThread));
+                threads.Add(t);
                 t.Start();
             }
-
-            Task.WaitAll(tasks.ToArray());
-            Assert.IsFalse(failed);
+            foreach (Thread t in threads)
+            {
+                t.Join();
+            }
+            Assert.IsFalse(encryptionFailed);
         }
 
-        private void RunSingleStreamSodiumEncryptionThread(string methodName = @"salsa20", string password = @"barfoo!")
+        private void RunSingleSodiumEncryptionThread()
         {
-            for (var i = 0; i < 100; i++)
+            try
             {
-                IEncryptor encryptor;
-                IEncryptor decryptor;
-                encryptor = new StreamSodiumEncryptor(methodName, password);
-                decryptor = new StreamSodiumEncryptor(methodName, password);
-                RunEncryptionRound(encryptor, decryptor);
+                for (int i = 0; i < 100; i++)
+                {
+                    var random = new Random();
+                    IEncryptor encryptor;
+                    IEncryptor decryptor;
+                    encryptor = new SodiumEncryptor("salsa20", "barfoo!", false);
+                    decryptor = new SodiumEncryptor("salsa20", "barfoo!", false);
+                    RunEncryptionRound(encryptor, decryptor);
+                }
+            }
+            catch
+            {
+                encryptionFailed = true;
+                throw;
             }
         }
     }
