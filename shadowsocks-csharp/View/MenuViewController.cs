@@ -2,19 +2,16 @@
 using Shadowsocks.Model;
 using Shadowsocks.Properties;
 using System;
-using System.IO;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
 using System.Runtime.InteropServices;
-
+using System.Text.RegularExpressions;
+using System.Threading;
+using System.Windows.Forms;
 using ZXing;
 using ZXing.Common;
 using ZXing.QrCode;
-using System.Threading;
-using System.Text.RegularExpressions;
 
 namespace Shadowsocks.View
 {
@@ -73,8 +70,8 @@ namespace Shadowsocks.View
         private bool configfrom_open = false;
         private List<EventParams> eventList = new List<EventParams>();
 
-        [System.Runtime.InteropServices.DllImport("user32.dll", CharSet = CharSet.Auto)]
-        extern static bool DestroyIcon(IntPtr handle);
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        static extern bool DestroyIcon(IntPtr handle);
 
         public MenuViewController(ShadowsocksController controller)
         {
@@ -153,15 +150,15 @@ namespace Shadowsocks.View
             bool global = config.sysProxyMode == (int)ProxyMode.Global;
             bool random = config.random;
 
-            try
-            {
-                Bitmap icon = new Bitmap("icon.png");
-                Icon newIcon = Icon.FromHandle(icon.GetHicon());
-                _notifyIcon.Icon = newIcon;
-                DestroyIcon(newIcon.Handle);
-            }
-            catch
-            {
+            //try
+            //{
+            //    Bitmap icon = new Bitmap("icon.png");
+            //    Icon newIcon = Icon.FromHandle(icon.GetHicon());
+            //    _notifyIcon.Icon = newIcon;
+            //    DestroyIcon(newIcon.Handle);
+            //}
+            //catch
+            //{
             Bitmap icon = null;
             if (dpi < 97)
             {
@@ -181,8 +178,8 @@ namespace Shadowsocks.View
                 Icon newIcon = Icon.FromHandle(icon.GetHicon());
                 _notifyIcon.Icon = newIcon;
                 DestroyIcon(newIcon.Handle);
-           
             }
+            //}
 
             // we want to show more details but notify icon title is limited to 63 characters
             string text = (enabled ?
@@ -560,7 +557,7 @@ namespace Shadowsocks.View
                     controller.SaveServersConfig(config);
                 }
             }
-            
+
             if (count > 0)
             {
                 if (updateFreeNodeChecker.noitify)

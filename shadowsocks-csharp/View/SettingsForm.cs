@@ -159,6 +159,7 @@ namespace Shadowsocks.View
 
                 _modifiedConfiguration.autoBan = CheckAutoBan.Checked;
                 _modifiedConfiguration.logEnable = CheckLogEnable.Checked;
+				_modifiedConfiguration.checkSwitchAutoCloseAll = checkSwitchAutoCloseAll.Checked;
 
                 return ret;
             }
@@ -206,6 +207,7 @@ namespace Shadowsocks.View
 
             CheckAutoBan.Checked = _modifiedConfiguration.autoBan;
             CheckLogEnable.Checked = _modifiedConfiguration.logEnable;
+			checkSwitchAutoCloseAll.Checked = _modifiedConfiguration.checkSwitchAutoCloseAll;
         }
 
         private void LoadCurrentConfiguration()
