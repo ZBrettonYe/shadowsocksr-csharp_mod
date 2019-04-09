@@ -3,15 +3,14 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
 using Shadowsocks.Controller;
 using Shadowsocks.Model;
 using Shadowsocks.Properties;
+using MetroSet_UI.Forms;
 
 namespace Shadowsocks.View
 {
-    public partial class SubscribeForm : Form
+    public partial class SubscribeForm : MetroSetForm
     {
         private ShadowsocksController controller;
         // this is a copy of configuration that we are working on
@@ -20,7 +19,7 @@ namespace Shadowsocks.View
 
         public SubscribeForm(ShadowsocksController controller)
         {
-            this.Font = System.Drawing.SystemFonts.MessageBoxFont;
+            this.Font = SystemFonts.MessageBoxFont;
             InitializeComponent();
 
             this.Icon = Icon.FromHandle(Resources.logo128.GetHicon());
@@ -45,7 +44,7 @@ namespace Shadowsocks.View
             label3.Text = I18N.GetString("Last Update");
         }
 
-        private void SubscribeForm_FormClosed(object sender, FormClosedEventArgs e)
+        private void SubscribeForm_FormClosed(object sender)
         {
             controller.ConfigChanged -= controller_ConfigChanged;
         }
@@ -133,10 +132,6 @@ namespace Shadowsocks.View
                     now = now.AddSeconds(ss.LastUpdateTime);
                     textUpdate.Text = now.ToLongDateString() + " " + now.ToLongTimeString();
                 }
-                else
-                {
-                    textUpdate.Text = "(｢･ω･)｢";
-                }
             }
         }
 
@@ -154,7 +149,7 @@ namespace Shadowsocks.View
             }
         }
 
-        private void listServerSubscribe_SelectedIndexChanged(object sender, EventArgs e)
+        private void listServerSubscribe_SelectedIndexChanged(object sender)
         {
             int select_index = listServerSubscribe.SelectedIndex;
             if (_old_select_index == select_index)

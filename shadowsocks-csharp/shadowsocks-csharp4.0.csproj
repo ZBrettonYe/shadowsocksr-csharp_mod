@@ -48,6 +48,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>ManagedMinimumRules.ruleset</CodeAnalysisRuleSet>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
@@ -60,6 +61,9 @@
     <CodeAnalysisRuleSet>ManagedMinimumRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MetroSet UI, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MetroSet_UI.1.0.3\lib\net20\MetroSet UI.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -239,13 +243,13 @@
     <Compile Include="View\ShowTextForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\ShowTextForm.designer.cs">
+    <Compile Include="View\ShowTextForm.Designer.cs">
       <DependentUpon>ShowTextForm.cs</DependentUpon>
     </Compile>
     <Compile Include="View\SubscribeForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\SubscribeForm.designer.cs">
+    <Compile Include="View\SubscribeForm.Designer.cs">
       <DependentUpon>SubscribeForm.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="View\ConfigForm.resx">
@@ -290,6 +294,8 @@
     <None Include="Data\privoxy.exe.gz" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Data\proxy.pac.txt.gz" />
+    <None Include="packages.config" />
     <None Include="Properties\DataSources\Shadowsocks.View.ConfigForm.datasource" />
     <Content Include="Data\cn.txt" />
     <None Include="Data\zh-tw.txt" />

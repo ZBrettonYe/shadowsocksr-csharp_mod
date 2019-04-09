@@ -28,254 +28,412 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.textBoxURL = new System.Windows.Forms.TextBox();
-            this.textBoxGroup = new System.Windows.Forms.TextBox();
-            this.checkBoxAutoUpdate = new System.Windows.Forms.CheckBox();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.buttonOK = new System.Windows.Forms.Button();
-            this.buttonCancel = new System.Windows.Forms.Button();
-            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.listServerSubscribe = new System.Windows.Forms.ListBox();
-            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
-            this.buttonAdd = new System.Windows.Forms.Button();
-            this.buttonDel = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
-            this.textUpdate = new System.Windows.Forms.TextBox();
-            this.tableLayoutPanel1.SuspendLayout();
-            this.tableLayoutPanel2.SuspendLayout();
-            this.tableLayoutPanel3.SuspendLayout();
-            this.tableLayoutPanel4.SuspendLayout();
+            this.metroSetPanel1 = new MetroSet_UI.Controls.MetroSetPanel();
+            this.listServerSubscribe = new MetroSet_UI.Controls.MetroSetListBox();
+            this.metroSetListBox1 = new MetroSet_UI.Controls.MetroSetListBox();
+            this.metroSetPanel2 = new MetroSet_UI.Controls.MetroSetPanel();
+            this.checkBoxAutoUpdate = new MetroSet_UI.Controls.MetroSetCheckBox();
+            this.buttonDel = new MetroSet_UI.Controls.MetroSetButton();
+            this.buttonAdd = new MetroSet_UI.Controls.MetroSetButton();
+            this.metroSetPanel3 = new MetroSet_UI.Controls.MetroSetPanel();
+            this.buttonCancel = new MetroSet_UI.Controls.MetroSetButton();
+            this.buttonOK = new MetroSet_UI.Controls.MetroSetButton();
+            this.textUpdate = new MetroSet_UI.Controls.MetroSetRichTextBox();
+            this.textBoxGroup = new MetroSet_UI.Controls.MetroSetRichTextBox();
+            this.textBoxURL = new MetroSet_UI.Controls.MetroSetRichTextBox();
+            this.label3 = new MetroSet_UI.Controls.MetroSetLabel();
+            this.label2 = new MetroSet_UI.Controls.MetroSetLabel();
+            this.label1 = new MetroSet_UI.Controls.MetroSetLabel();
+            this.metroSetPanel1.SuspendLayout();
+            this.metroSetPanel2.SuspendLayout();
+            this.metroSetPanel3.SuspendLayout();
             this.SuspendLayout();
             // 
-            // tableLayoutPanel1
+            // metroSetPanel1
             // 
-            this.tableLayoutPanel1.AutoSize = true;
-            this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.label2, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.textBoxURL, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.textBoxGroup, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(this.label3, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.textUpdate, 1, 2);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(353, 3);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 3;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(269, 81);
-            this.tableLayoutPanel1.TabIndex = 0;
-            // 
-            // label1
-            // 
-            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(51, 7);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(23, 12);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "URL";
-            // 
-            // label2
-            // 
-            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(9, 34);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(65, 12);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "Group name";
-            // 
-            // textBoxURL
-            // 
-            this.textBoxURL.Location = new System.Drawing.Point(80, 3);
-            this.textBoxURL.Name = "textBoxURL";
-            this.textBoxURL.Size = new System.Drawing.Size(186, 21);
-            this.textBoxURL.TabIndex = 1;
-            // 
-            // textBoxGroup
-            // 
-            this.textBoxGroup.Location = new System.Drawing.Point(80, 30);
-            this.textBoxGroup.Name = "textBoxGroup";
-            this.textBoxGroup.ReadOnly = true;
-            this.textBoxGroup.Size = new System.Drawing.Size(186, 21);
-            this.textBoxGroup.TabIndex = 1;
-            // 
-            // checkBoxAutoUpdate
-            // 
-            this.checkBoxAutoUpdate.AutoSize = true;
-            this.checkBoxAutoUpdate.Location = new System.Drawing.Point(3, 35);
-            this.checkBoxAutoUpdate.Name = "checkBoxAutoUpdate";
-            this.checkBoxAutoUpdate.Size = new System.Drawing.Size(90, 16);
-            this.checkBoxAutoUpdate.TabIndex = 3;
-            this.checkBoxAutoUpdate.Text = "Auto update";
-            this.checkBoxAutoUpdate.UseVisualStyleBackColor = true;
-            // 
-            // tableLayoutPanel2
-            // 
-            this.tableLayoutPanel2.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.tableLayoutPanel2.ColumnCount = 2;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Controls.Add(this.buttonOK, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.buttonCancel, 1, 0);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(353, 264);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 1;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(290, 60);
-            this.tableLayoutPanel2.TabIndex = 2;
-            // 
-            // buttonOK
-            // 
-            this.buttonOK.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.buttonOK.Location = new System.Drawing.Point(21, 10);
-            this.buttonOK.Name = "buttonOK";
-            this.buttonOK.Size = new System.Drawing.Size(102, 39);
-            this.buttonOK.TabIndex = 0;
-            this.buttonOK.Text = "OK";
-            this.buttonOK.UseVisualStyleBackColor = true;
-            this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
-            // 
-            // buttonCancel
-            // 
-            this.buttonCancel.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.buttonCancel.Location = new System.Drawing.Point(166, 10);
-            this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(102, 39);
-            this.buttonCancel.TabIndex = 0;
-            this.buttonCancel.Text = "Cancel";
-            this.buttonCancel.UseVisualStyleBackColor = true;
-            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
-            // 
-            // tableLayoutPanel3
-            // 
-            this.tableLayoutPanel3.ColumnCount = 2;
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 54.17957F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 45.82043F));
-            this.tableLayoutPanel3.Controls.Add(this.tableLayoutPanel1, 1, 0);
-            this.tableLayoutPanel3.Controls.Add(this.tableLayoutPanel2, 1, 1);
-            this.tableLayoutPanel3.Controls.Add(this.listServerSubscribe, 0, 0);
-            this.tableLayoutPanel3.Controls.Add(this.tableLayoutPanel4, 0, 1);
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(12, 12);
-            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
-            this.tableLayoutPanel3.RowCount = 2;
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 78.59327F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 21.40673F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(646, 327);
-            this.tableLayoutPanel3.TabIndex = 1;
+            this.metroSetPanel1.BackgroundColor = System.Drawing.Color.White;
+            this.metroSetPanel1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
+            this.metroSetPanel1.BorderThickness = 1;
+            this.metroSetPanel1.Controls.Add(this.listServerSubscribe);
+            this.metroSetPanel1.Location = new System.Drawing.Point(32, 98);
+            this.metroSetPanel1.Name = "metroSetPanel1";
+            this.metroSetPanel1.Size = new System.Drawing.Size(369, 242);
+            this.metroSetPanel1.Style = MetroSet_UI.Design.Style.Light;
+            this.metroSetPanel1.StyleManager = null;
+            this.metroSetPanel1.TabIndex = 0;
+            this.metroSetPanel1.ThemeAuthor = "Narwin";
+            this.metroSetPanel1.ThemeName = "MetroLite";
             // 
             // listServerSubscribe
             // 
-            this.listServerSubscribe.FormattingEnabled = true;
-            this.listServerSubscribe.ItemHeight = 12;
-            this.listServerSubscribe.Location = new System.Drawing.Point(3, 3);
+            this.listServerSubscribe.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listServerSubscribe.BorderColor = System.Drawing.Color.LightGray;
+            this.listServerSubscribe.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
+            this.listServerSubscribe.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(136)))), ((int)(((byte)(136)))), ((int)(((byte)(136)))));
+            this.listServerSubscribe.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.listServerSubscribe.HoveredItemBackColor = System.Drawing.Color.LightGray;
+            this.listServerSubscribe.HoveredItemColor = System.Drawing.Color.DimGray;
+            this.listServerSubscribe.ItemHeight = 30;
+            this.listServerSubscribe.Location = new System.Drawing.Point(4, 4);
+            this.listServerSubscribe.Margin = new System.Windows.Forms.Padding(4);
+            this.listServerSubscribe.MultiSelect = false;
             this.listServerSubscribe.Name = "listServerSubscribe";
-            this.listServerSubscribe.Size = new System.Drawing.Size(343, 244);
-            this.listServerSubscribe.TabIndex = 4;
-            this.listServerSubscribe.SelectedIndexChanged += new System.EventHandler(this.listServerSubscribe_SelectedIndexChanged);
+            this.listServerSubscribe.SelectedIndex = -1;
+            this.listServerSubscribe.SelectedItem = null;
+            this.listServerSubscribe.SelectedItemBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(177)))), ((int)(((byte)(225)))));
+            this.listServerSubscribe.SelectedItemColor = System.Drawing.Color.White;
+            this.listServerSubscribe.ShowBorder = false;
+            this.listServerSubscribe.ShowScrollBar = false;
+            this.listServerSubscribe.Size = new System.Drawing.Size(361, 234);
+            this.listServerSubscribe.Style = MetroSet_UI.Design.Style.Light;
+            this.listServerSubscribe.StyleManager = null;
+            this.listServerSubscribe.TabIndex = 0;
+            this.listServerSubscribe.ThemeAuthor = "Narwin";
+            this.listServerSubscribe.ThemeName = "MetroLite";
+            this.listServerSubscribe.SelectedIndexChanged += new MetroSet_UI.Controls.MetroSetListBox.SelectedIndexChangedEventHandler(this.listServerSubscribe_SelectedIndexChanged);
             // 
-            // tableLayoutPanel4
+            // metroSetListBox1
             // 
-            this.tableLayoutPanel4.ColumnCount = 2;
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel4.Controls.Add(this.checkBoxAutoUpdate, 0, 1);
-            this.tableLayoutPanel4.Controls.Add(this.buttonAdd, 0, 0);
-            this.tableLayoutPanel4.Controls.Add(this.buttonDel, 1, 0);
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 259);
-            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
-            this.tableLayoutPanel4.RowCount = 2;
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(343, 65);
-            this.tableLayoutPanel4.TabIndex = 5;
+            this.metroSetListBox1.BorderColor = System.Drawing.Color.LightGray;
+            this.metroSetListBox1.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
+            this.metroSetListBox1.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(136)))), ((int)(((byte)(136)))), ((int)(((byte)(136)))));
+            this.metroSetListBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.metroSetListBox1.HoveredItemBackColor = System.Drawing.Color.LightGray;
+            this.metroSetListBox1.HoveredItemColor = System.Drawing.Color.DimGray;
+            this.metroSetListBox1.ItemHeight = 30;
+            this.metroSetListBox1.Location = new System.Drawing.Point(0, 0);
+            this.metroSetListBox1.MultiSelect = false;
+            this.metroSetListBox1.Name = "metroSetListBox1";
+            this.metroSetListBox1.SelectedIndex = -1;
+            this.metroSetListBox1.SelectedItem = null;
+            this.metroSetListBox1.SelectedItemBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(177)))), ((int)(((byte)(225)))));
+            this.metroSetListBox1.SelectedItemColor = System.Drawing.Color.White;
+            this.metroSetListBox1.ShowBorder = false;
+            this.metroSetListBox1.ShowScrollBar = false;
+            this.metroSetListBox1.Size = new System.Drawing.Size(0, 0);
+            this.metroSetListBox1.Style = MetroSet_UI.Design.Style.Light;
+            this.metroSetListBox1.StyleManager = null;
+            this.metroSetListBox1.TabIndex = 1;
+            this.metroSetListBox1.ThemeAuthor = "Narwin";
+            this.metroSetListBox1.ThemeName = "MetroLite";
             // 
-            // buttonAdd
+            // metroSetPanel2
             // 
-            this.buttonAdd.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.buttonAdd.Location = new System.Drawing.Point(93, 4);
-            this.buttonAdd.Name = "buttonAdd";
-            this.buttonAdd.Size = new System.Drawing.Size(75, 23);
-            this.buttonAdd.TabIndex = 0;
-            this.buttonAdd.Text = "Add";
-            this.buttonAdd.UseVisualStyleBackColor = true;
-            this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
+            this.metroSetPanel2.BackgroundColor = System.Drawing.Color.White;
+            this.metroSetPanel2.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
+            this.metroSetPanel2.BorderThickness = 1;
+            this.metroSetPanel2.Controls.Add(this.checkBoxAutoUpdate);
+            this.metroSetPanel2.Controls.Add(this.buttonDel);
+            this.metroSetPanel2.Controls.Add(this.buttonAdd);
+            this.metroSetPanel2.Location = new System.Drawing.Point(32, 364);
+            this.metroSetPanel2.Name = "metroSetPanel2";
+            this.metroSetPanel2.Size = new System.Drawing.Size(369, 124);
+            this.metroSetPanel2.Style = MetroSet_UI.Design.Style.Light;
+            this.metroSetPanel2.StyleManager = null;
+            this.metroSetPanel2.TabIndex = 1;
+            this.metroSetPanel2.ThemeAuthor = "Narwin";
+            this.metroSetPanel2.ThemeName = "MetroLite";
+            // 
+            // checkBoxAutoUpdate
+            // 
+            this.checkBoxAutoUpdate.BackColor = System.Drawing.Color.Transparent;
+            this.checkBoxAutoUpdate.BackgroundColor = System.Drawing.Color.White;
+            this.checkBoxAutoUpdate.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(155)))), ((int)(((byte)(155)))), ((int)(((byte)(155)))));
+            this.checkBoxAutoUpdate.Checked = false;
+            this.checkBoxAutoUpdate.CheckSignColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(177)))), ((int)(((byte)(225)))));
+            this.checkBoxAutoUpdate.CheckState = MetroSet_UI.Enums.CheckState.Unchecked;
+            this.checkBoxAutoUpdate.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.checkBoxAutoUpdate.DisabledBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(205)))), ((int)(((byte)(205)))), ((int)(((byte)(205)))));
+            this.checkBoxAutoUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxAutoUpdate.Location = new System.Drawing.Point(4, 84);
+            this.checkBoxAutoUpdate.Name = "checkBoxAutoUpdate";
+            this.checkBoxAutoUpdate.SignStyle = MetroSet_UI.Enums.SignStyle.Shape;
+            this.checkBoxAutoUpdate.Size = new System.Drawing.Size(148, 16);
+            this.checkBoxAutoUpdate.Style = MetroSet_UI.Design.Style.Light;
+            this.checkBoxAutoUpdate.StyleManager = null;
+            this.checkBoxAutoUpdate.TabIndex = 4;
+            this.checkBoxAutoUpdate.Text = "Auto update";
+            this.checkBoxAutoUpdate.ThemeAuthor = "Narwin";
+            this.checkBoxAutoUpdate.ThemeName = "MetroLite";
             // 
             // buttonDel
             // 
-            this.buttonDel.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.buttonDel.Location = new System.Drawing.Point(174, 4);
+            this.buttonDel.AccessibleName = "";
+            this.buttonDel.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(65)))), ((int)(((byte)(177)))), ((int)(((byte)(225)))));
+            this.buttonDel.DisabledBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(65)))), ((int)(((byte)(177)))), ((int)(((byte)(225)))));
+            this.buttonDel.DisabledForeColor = System.Drawing.Color.Gray;
+            this.buttonDel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.buttonDel.HoverBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(207)))), ((int)(((byte)(255)))));
+            this.buttonDel.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(207)))), ((int)(((byte)(255)))));
+            this.buttonDel.HoverTextColor = System.Drawing.Color.White;
+            this.buttonDel.Location = new System.Drawing.Point(183, 15);
             this.buttonDel.Name = "buttonDel";
-            this.buttonDel.Size = new System.Drawing.Size(75, 23);
-            this.buttonDel.TabIndex = 1;
+            this.buttonDel.NormalBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(177)))), ((int)(((byte)(225)))));
+            this.buttonDel.NormalColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(177)))), ((int)(((byte)(225)))));
+            this.buttonDel.NormalTextColor = System.Drawing.Color.White;
+            this.buttonDel.PressBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(147)))), ((int)(((byte)(195)))));
+            this.buttonDel.PressColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(147)))), ((int)(((byte)(195)))));
+            this.buttonDel.PressTextColor = System.Drawing.Color.White;
+            this.buttonDel.Size = new System.Drawing.Size(183, 51);
+            this.buttonDel.Style = MetroSet_UI.Design.Style.Light;
+            this.buttonDel.StyleManager = null;
+            this.buttonDel.TabIndex = 3;
             this.buttonDel.Text = "Delete";
-            this.buttonDel.UseVisualStyleBackColor = true;
+            this.buttonDel.ThemeAuthor = "Narwin";
+            this.buttonDel.ThemeName = "MetroLite";
             this.buttonDel.Click += new System.EventHandler(this.buttonDel_Click);
             // 
-            // label3
+            // buttonAdd
             // 
-            this.label3.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(3, 61);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(71, 12);
-            this.label3.TabIndex = 0;
-            this.label3.Text = "Last Update";
+            this.buttonAdd.AccessibleName = "";
+            this.buttonAdd.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(65)))), ((int)(((byte)(177)))), ((int)(((byte)(225)))));
+            this.buttonAdd.DisabledBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(65)))), ((int)(((byte)(177)))), ((int)(((byte)(225)))));
+            this.buttonAdd.DisabledForeColor = System.Drawing.Color.Gray;
+            this.buttonAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.buttonAdd.HoverBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(207)))), ((int)(((byte)(255)))));
+            this.buttonAdd.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(207)))), ((int)(((byte)(255)))));
+            this.buttonAdd.HoverTextColor = System.Drawing.Color.White;
+            this.buttonAdd.Location = new System.Drawing.Point(3, 15);
+            this.buttonAdd.Name = "buttonAdd";
+            this.buttonAdd.NormalBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(177)))), ((int)(((byte)(225)))));
+            this.buttonAdd.NormalColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(177)))), ((int)(((byte)(225)))));
+            this.buttonAdd.NormalTextColor = System.Drawing.Color.White;
+            this.buttonAdd.PressBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(147)))), ((int)(((byte)(195)))));
+            this.buttonAdd.PressColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(147)))), ((int)(((byte)(195)))));
+            this.buttonAdd.PressTextColor = System.Drawing.Color.White;
+            this.buttonAdd.Size = new System.Drawing.Size(167, 51);
+            this.buttonAdd.Style = MetroSet_UI.Design.Style.Light;
+            this.buttonAdd.StyleManager = null;
+            this.buttonAdd.TabIndex = 2;
+            this.buttonAdd.Text = "Add";
+            this.buttonAdd.ThemeAuthor = "Narwin";
+            this.buttonAdd.ThemeName = "MetroLite";
+            this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
+            // 
+            // metroSetPanel3
+            // 
+            this.metroSetPanel3.BackgroundColor = System.Drawing.Color.White;
+            this.metroSetPanel3.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
+            this.metroSetPanel3.BorderThickness = 1;
+            this.metroSetPanel3.Controls.Add(this.buttonCancel);
+            this.metroSetPanel3.Controls.Add(this.buttonOK);
+            this.metroSetPanel3.Controls.Add(this.textUpdate);
+            this.metroSetPanel3.Controls.Add(this.textBoxGroup);
+            this.metroSetPanel3.Controls.Add(this.textBoxURL);
+            this.metroSetPanel3.Controls.Add(this.label3);
+            this.metroSetPanel3.Controls.Add(this.label2);
+            this.metroSetPanel3.Controls.Add(this.label1);
+            this.metroSetPanel3.Location = new System.Drawing.Point(407, 98);
+            this.metroSetPanel3.Name = "metroSetPanel3";
+            this.metroSetPanel3.Size = new System.Drawing.Size(408, 312);
+            this.metroSetPanel3.Style = MetroSet_UI.Design.Style.Light;
+            this.metroSetPanel3.StyleManager = null;
+            this.metroSetPanel3.TabIndex = 2;
+            this.metroSetPanel3.ThemeAuthor = "Narwin";
+            this.metroSetPanel3.ThemeName = "MetroLite";
+            // 
+            // buttonCancel
+            // 
+            this.buttonCancel.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(65)))), ((int)(((byte)(177)))), ((int)(((byte)(225)))));
+            this.buttonCancel.DisabledBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(65)))), ((int)(((byte)(177)))), ((int)(((byte)(225)))));
+            this.buttonCancel.DisabledForeColor = System.Drawing.Color.Gray;
+            this.buttonCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.buttonCancel.HoverBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(207)))), ((int)(((byte)(255)))));
+            this.buttonCancel.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(207)))), ((int)(((byte)(255)))));
+            this.buttonCancel.HoverTextColor = System.Drawing.Color.White;
+            this.buttonCancel.Location = new System.Drawing.Point(233, 240);
+            this.buttonCancel.Name = "buttonCancel";
+            this.buttonCancel.NormalBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(177)))), ((int)(((byte)(225)))));
+            this.buttonCancel.NormalColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(177)))), ((int)(((byte)(225)))));
+            this.buttonCancel.NormalTextColor = System.Drawing.Color.White;
+            this.buttonCancel.PressBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(147)))), ((int)(((byte)(195)))));
+            this.buttonCancel.PressColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(147)))), ((int)(((byte)(195)))));
+            this.buttonCancel.PressTextColor = System.Drawing.Color.White;
+            this.buttonCancel.Size = new System.Drawing.Size(156, 53);
+            this.buttonCancel.Style = MetroSet_UI.Design.Style.Light;
+            this.buttonCancel.StyleManager = null;
+            this.buttonCancel.TabIndex = 7;
+            this.buttonCancel.Text = "Cancel";
+            this.buttonCancel.ThemeAuthor = "Narwin";
+            this.buttonCancel.ThemeName = "MetroLite";
+            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
+            // 
+            // buttonOK
+            // 
+            this.buttonOK.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(65)))), ((int)(((byte)(177)))), ((int)(((byte)(225)))));
+            this.buttonOK.DisabledBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(65)))), ((int)(((byte)(177)))), ((int)(((byte)(225)))));
+            this.buttonOK.DisabledForeColor = System.Drawing.Color.Gray;
+            this.buttonOK.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.buttonOK.HoverBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(207)))), ((int)(((byte)(255)))));
+            this.buttonOK.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(207)))), ((int)(((byte)(255)))));
+            this.buttonOK.HoverTextColor = System.Drawing.Color.White;
+            this.buttonOK.Location = new System.Drawing.Point(71, 240);
+            this.buttonOK.Name = "buttonOK";
+            this.buttonOK.NormalBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(177)))), ((int)(((byte)(225)))));
+            this.buttonOK.NormalColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(177)))), ((int)(((byte)(225)))));
+            this.buttonOK.NormalTextColor = System.Drawing.Color.White;
+            this.buttonOK.PressBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(147)))), ((int)(((byte)(195)))));
+            this.buttonOK.PressColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(147)))), ((int)(((byte)(195)))));
+            this.buttonOK.PressTextColor = System.Drawing.Color.White;
+            this.buttonOK.Size = new System.Drawing.Size(156, 53);
+            this.buttonOK.Style = MetroSet_UI.Design.Style.Light;
+            this.buttonOK.StyleManager = null;
+            this.buttonOK.TabIndex = 6;
+            this.buttonOK.Text = "OK";
+            this.buttonOK.ThemeAuthor = "Narwin";
+            this.buttonOK.ThemeName = "MetroLite";
+            this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
             // 
             // textUpdate
             // 
-            this.textUpdate.Location = new System.Drawing.Point(80, 57);
+            this.textUpdate.AutoWordSelection = false;
+            this.textUpdate.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(155)))), ((int)(((byte)(155)))), ((int)(((byte)(155)))));
+            this.textUpdate.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
+            this.textUpdate.DisabledBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(155)))), ((int)(((byte)(155)))), ((int)(((byte)(155)))));
+            this.textUpdate.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(136)))), ((int)(((byte)(136)))), ((int)(((byte)(136)))));
+            this.textUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.textUpdate.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(102)))), ((int)(((byte)(102)))));
+            this.textUpdate.Lines = null;
+            this.textUpdate.Location = new System.Drawing.Point(156, 90);
+            this.textUpdate.MaxLength = 32767;
             this.textUpdate.Name = "textUpdate";
-            this.textUpdate.ReadOnly = true;
-            this.textUpdate.Size = new System.Drawing.Size(186, 21);
-            this.textUpdate.TabIndex = 1;
+            this.textUpdate.ReadOnly = false;
+            this.textUpdate.Size = new System.Drawing.Size(233, 28);
+            this.textUpdate.Style = MetroSet_UI.Design.Style.Light;
+            this.textUpdate.StyleManager = null;
+            this.textUpdate.TabIndex = 5;
+            this.textUpdate.ThemeAuthor = "Narwin";
+            this.textUpdate.ThemeName = "MetroLite";
+            this.textUpdate.WordWrap = true;
+            // 
+            // textBoxGroup
+            // 
+            this.textBoxGroup.AutoWordSelection = false;
+            this.textBoxGroup.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(155)))), ((int)(((byte)(155)))), ((int)(((byte)(155)))));
+            this.textBoxGroup.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
+            this.textBoxGroup.DisabledBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(155)))), ((int)(((byte)(155)))), ((int)(((byte)(155)))));
+            this.textBoxGroup.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(136)))), ((int)(((byte)(136)))), ((int)(((byte)(136)))));
+            this.textBoxGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.textBoxGroup.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(102)))), ((int)(((byte)(102)))));
+            this.textBoxGroup.Lines = null;
+            this.textBoxGroup.Location = new System.Drawing.Point(156, 56);
+            this.textBoxGroup.MaxLength = 32767;
+            this.textBoxGroup.Name = "textBoxGroup";
+            this.textBoxGroup.ReadOnly = false;
+            this.textBoxGroup.Size = new System.Drawing.Size(233, 28);
+            this.textBoxGroup.Style = MetroSet_UI.Design.Style.Light;
+            this.textBoxGroup.StyleManager = null;
+            this.textBoxGroup.TabIndex = 4;
+            this.textBoxGroup.ThemeAuthor = "Narwin";
+            this.textBoxGroup.ThemeName = "MetroLite";
+            this.textBoxGroup.WordWrap = true;
+            // 
+            // textBoxURL
+            // 
+            this.textBoxURL.AutoWordSelection = false;
+            this.textBoxURL.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(155)))), ((int)(((byte)(155)))), ((int)(((byte)(155)))));
+            this.textBoxURL.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
+            this.textBoxURL.DisabledBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(155)))), ((int)(((byte)(155)))), ((int)(((byte)(155)))));
+            this.textBoxURL.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(136)))), ((int)(((byte)(136)))), ((int)(((byte)(136)))));
+            this.textBoxURL.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.textBoxURL.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(102)))), ((int)(((byte)(102)))));
+            this.textBoxURL.Lines = null;
+            this.textBoxURL.Location = new System.Drawing.Point(156, 22);
+            this.textBoxURL.MaxLength = 32767;
+            this.textBoxURL.Name = "textBoxURL";
+            this.textBoxURL.ReadOnly = false;
+            this.textBoxURL.Size = new System.Drawing.Size(233, 28);
+            this.textBoxURL.Style = MetroSet_UI.Design.Style.Light;
+            this.textBoxURL.StyleManager = null;
+            this.textBoxURL.TabIndex = 3;
+            this.textBoxURL.ThemeAuthor = "Narwin";
+            this.textBoxURL.ThemeName = "MetroLite";
+            this.textBoxURL.WordWrap = true;
+            // 
+            // label3
+            // 
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.label3.Location = new System.Drawing.Point(26, 90);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(123, 28);
+            this.label3.Style = MetroSet_UI.Design.Style.Light;
+            this.label3.StyleManager = null;
+            this.label3.TabIndex = 2;
+            this.label3.Text = "Last Update";
+            this.label3.ThemeAuthor = "Narwin";
+            this.label3.ThemeName = "MetroLite";
+            // 
+            // label2
+            // 
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.label2.Location = new System.Drawing.Point(26, 56);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(123, 28);
+            this.label2.Style = MetroSet_UI.Design.Style.Light;
+            this.label2.StyleManager = null;
+            this.label2.TabIndex = 1;
+            this.label2.Text = "Group name";
+            this.label2.ThemeAuthor = "Narwin";
+            this.label2.ThemeName = "MetroLite";
+            // 
+            // label1
+            // 
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.label1.Location = new System.Drawing.Point(26, 22);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(123, 28);
+            this.label1.Style = MetroSet_UI.Design.Style.Light;
+            this.label1.StyleManager = null;
+            this.label1.TabIndex = 0;
+            this.label1.Text = "URL";
+            this.label1.ThemeAuthor = "Narwin";
+            this.label1.ThemeName = "MetroLite";
             // 
             // SubscribeForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AllowDrop = true;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.AutoScroll = true;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(681, 364);
-            this.Controls.Add(this.tableLayoutPanel3);
+            this.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
+            this.ClientSize = new System.Drawing.Size(842, 516);
+            this.Controls.Add(this.metroSetPanel3);
+            this.Controls.Add(this.metroSetPanel2);
+            this.Controls.Add(this.metroSetListBox1);
+            this.Controls.Add(this.metroSetPanel1);
+            this.HelpButton = true;
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "SubscribeForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Subscribe Settings";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.SubscribeForm_FormClosed);
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
-            this.tableLayoutPanel2.ResumeLayout(false);
-            this.tableLayoutPanel3.ResumeLayout(false);
-            this.tableLayoutPanel3.PerformLayout();
-            this.tableLayoutPanel4.ResumeLayout(false);
-            this.tableLayoutPanel4.PerformLayout();
+            this.metroSetPanel1.ResumeLayout(false);
+            this.metroSetPanel2.ResumeLayout(false);
+            this.metroSetPanel3.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBoxURL;
-        private System.Windows.Forms.TextBox textBoxGroup;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
-        private System.Windows.Forms.Button buttonOK;
-        private System.Windows.Forms.Button buttonCancel;
-        private System.Windows.Forms.CheckBox checkBoxAutoUpdate;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
-        private System.Windows.Forms.ListBox listServerSubscribe;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
-        private System.Windows.Forms.Button buttonAdd;
-        private System.Windows.Forms.Button buttonDel;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textUpdate;
+        private MetroSet_UI.Controls.MetroSetPanel metroSetPanel1;
+        private MetroSet_UI.Controls.MetroSetListBox listServerSubscribe;
+        private MetroSet_UI.Controls.MetroSetListBox metroSetListBox1;
+        private MetroSet_UI.Controls.MetroSetPanel metroSetPanel2;
+        private MetroSet_UI.Controls.MetroSetButton buttonAdd;
+        private MetroSet_UI.Controls.MetroSetButton buttonDel;
+        private MetroSet_UI.Controls.MetroSetCheckBox checkBoxAutoUpdate;
+        private MetroSet_UI.Controls.MetroSetPanel metroSetPanel3;
+        private MetroSet_UI.Controls.MetroSetLabel label1;
+        private MetroSet_UI.Controls.MetroSetLabel label2;
+        private MetroSet_UI.Controls.MetroSetLabel label3;
+        private MetroSet_UI.Controls.MetroSetRichTextBox textBoxURL;
+        private MetroSet_UI.Controls.MetroSetRichTextBox textUpdate;
+        private MetroSet_UI.Controls.MetroSetRichTextBox textBoxGroup;
+        private MetroSet_UI.Controls.MetroSetButton buttonCancel;
+        private MetroSet_UI.Controls.MetroSetButton buttonOK;
     }
 }
