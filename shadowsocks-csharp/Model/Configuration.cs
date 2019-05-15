@@ -66,9 +66,7 @@ namespace Shadowsocks.Model
     [Serializable]
     public class ServerSubscribe
     {
-        private static string DEFAULT_FEED_URL = "https://ssr.otakuyun.com/update/freenode.txt";
-
-        public string URL = DEFAULT_FEED_URL;
+        public string URL = null;
         public string Group;
         public UInt64 LastUpdateTime;
     }
@@ -395,8 +393,8 @@ namespace Shadowsocks.Model
             localDnsServer = "";
 
             balanceAlgorithm = "LowException";
-            random = true;
-            sysProxyMode = (int)ProxyMode.Global;
+            random = false;
+            sysProxyMode = (int)ProxyMode.NoModify;
             proxyRuleMode = (int)ProxyRuleMode.BypassLanAndChina;
 
             nodeFeedAutoUpdate = true;

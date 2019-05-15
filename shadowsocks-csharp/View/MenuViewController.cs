@@ -174,9 +174,8 @@ namespace Shadowsocks.View
             {
                 icon = Resources.logo64;
             }
-                Icon newIcon = Icon.FromHandle(iconCopy.GetHicon());
+                Icon newIcon = Icon.FromHandle(icon.GetHicon());
                 icon.Dispose();
-                iconCopy.Dispose();
 
                 _notifyIcon.Icon = newIcon;
             }
@@ -213,11 +212,10 @@ namespace Shadowsocks.View
                 }),
                 CreateMenuGroup("PAC rule", new MenuItem[] {
                     CreateMenuItem("Update local PAC from Lan IP list", new EventHandler(this.UpdatePACFromLanIPListItem_Click)),
-                    new MenuItem("-"),
                     CreateMenuItem("Update local PAC from Chn White list", new EventHandler(this.UpdatePACFromCNWhiteListItem_Click)),
                     CreateMenuItem("Update local PAC from Chn IP list", new EventHandler(this.UpdatePACFromCNIPListItem_Click)),
-                    CreateMenuItem("Update local PAC from GFWList", new EventHandler(this.UpdatePACFromGFWListItem_Click)),
                     new MenuItem("-"),
+                    CreateMenuItem("Update local PAC from GFWList", new EventHandler(this.UpdatePACFromGFWListItem_Click)),
                     CreateMenuItem("Update local PAC from Chn Only list", new EventHandler(this.UpdatePACFromCNOnlyListItem_Click)),
                     new MenuItem("-"),
                     CreateMenuItem("Copy PAC URL", new EventHandler(this.CopyPACURLItem_Click)),
@@ -243,9 +241,9 @@ namespace Shadowsocks.View
                 }),
                 new MenuItem("-"),
                  CreateMenuGroup("Servers Subscribe", new MenuItem[] {
-                        CreateMenuItem("Subscribe setting...", new EventHandler(this.SubscribeSetting_Click)),
-                        CreateMenuItem("Update subscribe SSR node", new EventHandler(this.CheckNodeUpdate_Click)),
-                        CreateMenuItem("Update subscribe SSR node(bypass proxy)", new EventHandler(this.CheckNodeUpdateBypassProxy_Click)),
+                     CreateMenuItem("Subscribe setting...", new EventHandler(this.SubscribeSetting_Click)),
+                     CreateMenuItem("Update subscribe SSR node", new EventHandler(this.CheckNodeUpdate_Click)),
+                     CreateMenuItem("Update subscribe SSR node(bypass proxy)", new EventHandler(this.CheckNodeUpdateBypassProxy_Click)),
                  }),
                 CreateMenuItem("Scan QRCode from screen...", new EventHandler(this.ScanQRCodeItem_Click)),
                 CreateMenuItem("Import SSR links from clipboard...", new EventHandler(this.CopyAddress_Click)),
@@ -1076,22 +1074,22 @@ namespace Shadowsocks.View
 
         private void UpdatePACFromLanIPListItem_Click(object sender, EventArgs e)
         {
-            controller.UpdatePACFromOnlinePac("https://raw.githubusercontent.com/shadowsocksrr/breakwa11.github.io/master/ssr/ss_lanip.pac");
+            controller.UpdatePACFromOnlinePac("https://raw.githubusercontent.com/ZBrettonYe/SSR_ACL_Update/master/autoupdate/ss_lanip.pac");
         }
 
         private void UpdatePACFromCNWhiteListItem_Click(object sender, EventArgs e)
         {
-            controller.UpdatePACFromOnlinePac("https://raw.githubusercontent.com/shadowsocksrr/breakwa11.github.io/master/ssr/ss_white.pac");
+            controller.UpdatePACFromOnlinePac("https://raw.githubusercontent.com/ZBrettonYe/SSR_ACL_Update/master/autoupdate/ss_white.pac");
         }
 
         private void UpdatePACFromCNOnlyListItem_Click(object sender, EventArgs e)
         {
-            controller.UpdatePACFromOnlinePac("https://raw.githubusercontent.com/shadowsocksrr/breakwa11.github.io/master/ssr/ss_white_r.pac");
+            controller.UpdatePACFromOnlinePac("https://raw.githubusercontent.com/ZBrettonYe/SSR_ACL_Update/master/autoupdate/ss_white_r.pac");
         }
 
         private void UpdatePACFromCNIPListItem_Click(object sender, EventArgs e)
         {
-            controller.UpdatePACFromOnlinePac("https://raw.githubusercontent.com/shadowsocksrr/breakwa11.github.io/master/ssr/ss_cnip.pac");
+            controller.UpdatePACFromOnlinePac("https://raw.githubusercontent.com/ZBrettonYe/SSR_ACL_Update/master/autoupdate/ss_cnip.pac");
         }
 
         private void EditUserRuleFileForGFWListItem_Click(object sender, EventArgs e)

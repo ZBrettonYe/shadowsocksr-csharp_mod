@@ -4,12 +4,12 @@ Shadowsocks=Shadowsocks
 
 # Menu items
 
-Mode=代理模式
+Mode=模式
 No modify system proxy=保持當前設置不變
 Disable system proxy=直連
 PAC=智能
 Global=全局
-PAC rule=智能代理配置
+PAC rule=PAC
 Proxy rule=代理規則
 Bypass LAN=繞過區域網路
 Bypass LAN && China=繞過區域網路和大陸
@@ -29,11 +29,11 @@ Allow Clients from LAN=允許來自區域網路的連接
 Load balance=負載均衡
 Same host for same address=同址優先
 Enable domain white list(http proxy only)=使用域名白名單(僅http代理)
-Update local PAC from Lan IP list=更新PAC為繞過區域網路IP
-Update local PAC from Chn White list=更新PAC為繞過大陸常見域名列表
-Update local PAC from Chn IP list=更新PAC為繞過大陸IP(慎用)
-Update local PAC from GFWList=更新PAC為代理常見被墻域名
-Update local PAC from Chn Only list=更新PAC為僅通過大陸常見域名（國外訪問大陸）
+Update local PAC from Lan IP list=更新PAC為不代理區域網路IP
+Update local PAC from Chn White list=更新PAC為不代理大陸常見域名列表
+Update local PAC from Chn IP list=更新PAC為不代理大陸IP(慎用)
+Update local PAC from GFWList=更新PAC為 代理常見被墻域名
+Update local PAC from Chn Only list=更新PAC為 代理大陸常見域名（國外訪問大陸）
 Copy PAC URL=複製 PAC URL
 Edit local PAC file...=編輯本地 PAC 文件...
 Edit user rule for GFWList...=編輯 GFWList 的用戶規則...

@@ -276,6 +276,8 @@ namespace Shadowsocks.Model
             ret.group = group;
             ret.enable = enable;
             ret.udp_over_tcp = udp_over_tcp;
+
+
             ret.id = id;
             ret.protocoldata = protocoldata;
             ret.obfsdata = obfsdata;
@@ -293,7 +295,7 @@ namespace Shadowsocks.Model
             obfsparam = "";
             password = "0";
             remarks_base64 = "";
-            group = "FreeSSR-public";
+            group = "";
             udp_over_tcp = false;
             enable = true;
             byte[] id = new byte[16];

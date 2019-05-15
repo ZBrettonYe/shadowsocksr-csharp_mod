@@ -13,7 +13,7 @@ namespace Shadowsocks.Controller
 {
     public class UpdateFreeNode
     {
-        private const string UpdateURL = "https://ssr.otakuyun.com/update/freenode.txt";
+        private const string UpdateURL = null;
 
         public event EventHandler NewFreeNodeFound;
         public string FreeNodeResult;
