@@ -152,10 +152,10 @@ namespace Shadowsocks.View
 
             try
             {
-                using (Bitmap icon = new Bitmap("icon.png"))
-                {
-                    _notifyIcon.Icon = Icon.FromHandle(icon.GetHicon());
-                }
+                Bitmap icon = new Bitmap("icon.png");
+                Icon newIcon = Icon.FromHandle(icon.GetHicon());
+                icon.Dispose();
+                _notifyIcon.Icon = newIcon;
             }
             catch
             {
@@ -174,10 +174,11 @@ namespace Shadowsocks.View
             {
                 icon = Resources.logo64;
             }
-                Icon newIcon = Icon.FromHandle(icon.GetHicon());
+                Icon newIcon = Icon.FromHandle(iconCopy.GetHicon());
+                icon.Dispose();
+                iconCopy.Dispose();
+
                 _notifyIcon.Icon = newIcon;
-                DestroyIcon(newIcon.Handle);
-               
             }
 
             // we want to show more details but notify icon title is limited to 63 characters
@@ -274,14 +275,12 @@ namespace Shadowsocks.View
         {
             Configuration config = controller.GetCurrentConfiguration();
             UpdateSysProxyMode(config);
-            UpdateTrayIcon();
         }
 
         private void controller_ToggleRuleModeChanged(object sender, EventArgs e)
         {
             Configuration config = controller.GetCurrentConfiguration();
             UpdateProxyRule(config);
-            UpdateTrayIcon();
         }
 
         void controller_FileReadyToOpen(object sender, ShadowsocksController.PathEventArgs e)
@@ -1102,6 +1101,12 @@ namespace Shadowsocks.View
 
         private void AServerItem_Click(object sender, EventArgs e)
         {
+            Configuration config = controller.GetCurrentConfiguration();
+            Console.WriteLine("config.checkSwitchAutoCloseAll:" + config.checkSwitchAutoCloseAll);
+            if (config.checkSwitchAutoCloseAll)
+            {
+                controller.DisconnectAllConnections();
+            }
             MenuItem item = (MenuItem)sender;
             controller.SelectServerIndex((int)item.Tag);
         }
@@ -1143,12 +1148,7 @@ namespace Shadowsocks.View
 
         private void DisconnectCurrent_Click(object sender, EventArgs e)
         {
-            Configuration config = controller.GetCurrentConfiguration();
-            for (int id = 0; id < config.configs.Count; ++id)
-            {
-                Server server = config.configs[id];
-                server.GetConnections().CloseAll();
-            }
+            controller.DisconnectAllConnections();
         }
 
         private void URL_Split(string text, ref List<string> out_urls)

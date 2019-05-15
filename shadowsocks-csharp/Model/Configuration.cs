@@ -66,7 +66,7 @@ namespace Shadowsocks.Model
     [Serializable]
     public class ServerSubscribe
     {
-        private static string DEFAULT_FEED_URL = "https://ssr.otakuyun.com/clients/free/freenodeplain.txt";
+        private static string DEFAULT_FEED_URL = "https://ssr.otakuyun.com/update/freenode.txt";
 
         public string URL = DEFAULT_FEED_URL;
         public string Group;
@@ -133,8 +133,8 @@ namespace Shadowsocks.Model
         public string authPass;
 
         public bool autoBan;
-        public bool logEnable;
         public bool checkSwitchAutoCloseAll;
+        public bool logEnable;
         public bool sameHostForSameTarget;
 
         public int keepVisitTime;
@@ -437,8 +437,8 @@ namespace Shadowsocks.Model
             authUser = config.authUser;
             authPass = config.authPass;
             autoBan = config.autoBan;
-            logEnable = config.logEnable;
             checkSwitchAutoCloseAll = config.checkSwitchAutoCloseAll;
+            logEnable = config.logEnable;
             sameHostForSameTarget = config.sameHostForSameTarget;
             keepVisitTime = config.keepVisitTime;
             isHideTips = config.isHideTips;

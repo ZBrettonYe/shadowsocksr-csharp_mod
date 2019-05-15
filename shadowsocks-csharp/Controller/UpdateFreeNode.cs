@@ -13,7 +13,7 @@ namespace Shadowsocks.Controller
 {
     public class UpdateFreeNode
     {
-        private const string UpdateURL = "https://ssr.otakuyun.com/free/freenodeplain.txt";
+        private const string UpdateURL = "https://ssr.otakuyun.com/update/freenode.txt";
 
         public event EventHandler NewFreeNodeFound;
         public string FreeNodeResult;
@@ -50,6 +50,13 @@ namespace Shadowsocks.Controller
                 //UseProxy = !UseProxy;
                 this.subscribeTask = subscribeTask;
                 string URL = subscribeTask.URL;
+                
+                //add support for tls1.2+
+                if (URL.StartsWith("https", StringComparison.OrdinalIgnoreCase))
+                {
+                    ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | (SecurityProtocolType)3072 | SecurityProtocolType.Tls;
+                }
+
                 http.DownloadStringCompleted += http_DownloadStringCompleted;
                 http.DownloadStringAsync(new Uri(URL != null ? URL : UpdateURL));
             }
