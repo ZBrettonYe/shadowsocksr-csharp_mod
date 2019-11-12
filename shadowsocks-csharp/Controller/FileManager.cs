@@ -1,47 +1,43 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.IO.Compression;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Shadowsocks.Controller
 {
-    public class FileManager
+    public static class FileManager
     {
         public static bool ByteArrayToFile(string fileName, byte[] content)
         {
             try
             {
-                System.IO.FileStream _FileStream =
-                   new System.IO.FileStream(fileName, System.IO.FileMode.Create,
-                                            System.IO.FileAccess.Write);
-                _FileStream.Write(content, 0, content.Length);
-                _FileStream.Close();
+                var fileStream = new FileStream(fileName, FileMode.Create, FileAccess.Write);
+                fileStream.Write(content, 0, content.Length);
+                fileStream.Close();
                 return true;
             }
-            catch (Exception _Exception)
+            catch (Exception ex)
             {
-                Console.WriteLine("Exception caught in process: {0}",
-                                  _Exception.ToString());
+                Console.WriteLine($@"Exception caught in process: {ex}");
             }
             return false;
         }
 
-        public static void UncompressFile(string fileName, byte[] content)
+        public static void DecompressFile(string fileName, byte[] content)
         {
-            FileStream destinationFile = File.Create(fileName);
+            var destinationFile = File.Create(fileName);
 
             // Because the uncompressed size of the file is unknown, 
             // we are using an arbitrary buffer size.
-            byte[] buffer = new byte[4096];
-            int n;
+            var buffer = new byte[4096];
 
-            using (GZipStream input = new GZipStream(new MemoryStream(content),
-                CompressionMode.Decompress, false))
+            using (var input = new GZipStream(new MemoryStream(content), CompressionMode.Decompress, false))
             {
                 while (true)
                 {
-                    n = input.Read(buffer, 0, buffer.Length);
+                    var n = input.Read(buffer, 0, buffer.Length);
                     if (n == 0)
                     {
                         break;
@@ -57,50 +53,98 @@ namespace Shadowsocks.Controller
             size = 0;
             try
             {
-                MemoryStream memStream = new MemoryStream();
-                using (DeflateStream ds = new DeflateStream(memStream, CompressionMode.Compress))
+                var memStream = new MemoryStream();
+                using (var ds = new DeflateStream(memStream, CompressionMode.Compress))
                 {
                     ds.Write(content, index, count);
                 }
-                byte[] buffer = memStream.ToArray();
+                var buffer = memStream.ToArray();
                 size = buffer.Length;
                 return buffer;
             }
-            catch (Exception _Exception)
+            catch (Exception ex)
             {
-                Console.WriteLine("Exception caught in process: {0}",
-                                  _Exception.ToString());
+                Console.WriteLine($@"Exception caught in process: {ex}");
             }
             return null;
         }
+
         public static byte[] DeflateDecompress(byte[] content, int index, int count, out int size)
         {
             size = 0;
             try
             {
-                byte[] buffer = new byte[16384];
-                DeflateStream ds = new DeflateStream(new MemoryStream(content, index, count), CompressionMode.Decompress);
-                int readsize;
+                var buffer = new byte[16384];
+                var ds = new DeflateStream(new MemoryStream(content, index, count), CompressionMode.Decompress);
                 while (true)
                 {
-                    readsize = ds.Read(buffer, size, buffer.Length - size);
-                    if (readsize == 0)
+                    var readSize = ds.Read(buffer, size, buffer.Length - size);
+                    if (readSize == 0)
                     {
                         break;
                     }
-                    size += readsize;
-                    byte[] newbuffer = new byte[buffer.Length * 2];
-                    buffer.CopyTo(newbuffer, 0);
-                    buffer = newbuffer;
+                    size += readSize;
+                    var newBuffer = new byte[buffer.Length * 2];
+                    buffer.CopyTo(newBuffer, 0);
+                    buffer = newBuffer;
                 }
                 return buffer;
             }
-            catch (Exception _Exception)
+            catch (Exception ex)
             {
-                Console.WriteLine("Exception caught in process: {0}",
-                                  _Exception.ToString());
+                Console.WriteLine($@"Exception caught in process: {ex}");
             }
             return null;
+        }
+
+        [SuppressMessage("ReSharper", "AssignNullToNotNullAttribute")]
+        public static async Task<bool> ZipCompressToFile(string path)
+        {
+            try
+            {
+                var filename = Path.GetFileName(path);
+                var zipFilePath = $@"{Path.Combine(Path.GetDirectoryName(path), Path.GetFileNameWithoutExtension(path))}.zip";
+                using (var zipFileToOpen = new FileStream(zipFilePath, FileMode.Create))
+                {
+                    using var archive = new ZipArchive(zipFileToOpen, ZipArchiveMode.Create);
+                    var readMeEntry = archive.CreateEntry(filename);
+                    using var zipStream = readMeEntry.Open();
+                    using var stream = File.Open(path, FileMode.Open);
+                    var bytes = new byte[(int)stream.Length];
+                    var totalBytesRead = 0;
+                    while (totalBytesRead < bytes.Length)
+                    {
+                        totalBytesRead += await stream.ReadAsync(bytes, totalBytesRead, bytes.Length - totalBytesRead);
+                    }
+
+                    await zipStream.WriteAsync(bytes, 0, bytes.Length);
+                }
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public static string NonExclusiveReadAllText(string path)
+        {
+            return NonExclusiveReadAllText(path, Encoding.UTF8);
+        }
+
+        public static string NonExclusiveReadAllText(string path, Encoding encoding)
+        {
+            try
+            {
+                using var fs = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+                using var sr = new StreamReader(fs, encoding);
+                return sr.ReadToEnd();
+            }
+            catch (Exception ex)
+            {
+                Logging.Error(ex);
+                throw;
+            }
         }
     }
 }

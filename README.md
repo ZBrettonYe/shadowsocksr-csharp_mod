@@ -1,67 +1,43 @@
-ShadowsocksR for Windows
+<img src="shadowsocks-csharp/Resources/ssw128.png" width="48"/>ShadowsocksR for Windows
 =======================
 
-[![Build Status]][Appveyor]    <b> <=== \[click this to download nightly version\] </b>
+[![](https://img.shields.io/badge/Telegram-Channel-blue)](https://t.me/ShadowsocksR_Windows)
+[![](https://img.shields.io/badge/Telegram-Group-green)](https://t.me/joinchat/Gn-Aa0-j4HeNckZklRAh7w)
 
-#### Download
+## Build
 
-You will need to download and install [7-Zip](http://www.7-zip.org/) in order 
-to extract the ShadowsocksR archive.
+[![](https://github.com/HMBSbige/ShadowsocksR-Windows/workflows/.NET%20Build/badge.svg)](https://github.com/HMBSbige/ShadowsocksR-Windows/actions)
 
-Download the [latest release] for ShadowsocksR for Windows.
+[![Build Status]][Appveyor]
 
-_Optionally_, right-click on the downloaded 7z file and select 
-**CRC SHA** > **SHA-256**. Verify that the SHA-256 checksum displayed 
-matches the expected checksum which was shown on the releases page.
 
-Right-click on the downloaded 7z file and do **7-Zip** > **Extract Here** 
-or extract to a new folder.
+## [Wiki](https://github.com/HMBSbige/ShadowsocksR-Windows/wiki)
 
-_Optionally_, download and install [Gpg4win](https://www.gpg4win.org/). 
-From the Windows start menu, launch program **Kleopatra**. 
-Do **File** > **New Certificate** to create a personal OpenPGP key pair. 
-Save the signing key from
-[Akkariiin/pubkey](https://github.com/Akkariiin/pubkey) as a text file. 
-Then do **File** > **Import Certificates** to import the signing key text file.
-After import, select the signing key and do 
-**Certificates** > **Certify Certificates**. 
-You will need to enter the passphrase for your own key. 
-Finally, do **File** > **Decrypt/Verify Files** for the executable 
-you propose to use (see below). A message confirming successful verification 
-of the signature appears against a green background. 
-Close program **Kleopatra**.
+## 相关推荐
 
-For >= Windows 8 or with .Net 4.0, using ShadowsocksR-dotnet4.0.exe.
+[**翻墙功夫网 :100:**](https://iplc.store/register?aff=6476)
 
-For <= Windows 7 or with .Net 2.0, using ShadowsocksR-dotnet2.0.exe.
+这是我所选择的服务器提供商，IPLC专线翻墙、稳定、速度快、价格便宜。欢迎大家使用我的推广链接前去注册。https://iplc.store/register?aff=6476
 
-#### Usage
+## Download
 
-1. Find ShadowsocksR icon in the system tray.
-2. You can add multiple servers in servers menu.
-3. Select Enable System Proxy menu to enable system proxy. Please disable other
-proxy addons in your browser, or set them to use system proxy.
-4. You can also configure your browser proxy manually if you don't want to enable
-system proxy. Set Socks5 or HTTP proxy to 127.0.0.1:1080. You can change this
-port in Global settings.
-5. You can change PAC rules by editing the PAC file. When you save the PAC file
-with any editor, ShadowsocksR will notify browsers about the change automatically.
-6. You can also update the PAC file from GFWList. Note your modifications to the PAC
-file will be lost. However you can put your rules in the user rule file for GFWList.
-Don't forget to update from GFWList again after you've edited the user rule.
-7. For UDP, you need to use SocksCap or ProxyCap to force programs you want
-to proxy to tunnel over ShadowsocksR.
+* [latest release]
+* [nightly build]
 
-### Develop
+## Donate
+[Donate](./pic/wechat.jpg)
 
-Visual Studio Community 2017 is recommended.
+## Develop
 
-#### License
+Visual Studio Community 2019 is recommended.
+
+## License
 
 GPLv3
 
-Copyright © OtakuCloud 2019. Forked from ShadowsocksR by BreakWa11
+Copyright © HMBSbige 2019. Forked from ShadowsocksR by BreakWa11
 
-[Appveyor]:       https://ci.appveyor.com/project/Akkariiin/shadowsocksr-csharp
-[Build Status]:   https://ci.appveyor.com/api/projects/status/ey901turnakim5nv/branch/master?svg=true
-[latest release]: https://github.com/shadowsocksrr/shadowsocksr-csharp/releases
+[Appveyor]:       https://ci.appveyor.com/project/HMBSbige/shadowsocksr-windows
+[Build Status]:   https://ci.appveyor.com/api/projects/status/b9jgwdfvn20ithj1/branch/master?svg=true
+[latest release]: https://github.com/HMBSbige/ShadowsocksR-Windows/releases
+[nightly build]: https://ci.appveyor.com/project/HMBSbige/shadowsocksr-windows/branch/master/artifacts
